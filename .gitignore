@@ -1,0 +1,58 @@
+# Local modules specific to this machine
+# Old names:
+init_local.el
+init-local-prolog.el
+init-local-prefs.el
+# New names:
+before-init.el
+after-init.el
+prefs.el
+local
+
+# Melpa packages
+elpa*/
+
+# Caches
+eln-cache/
+.cache/
+cider-history
+semanticdb
+# CEDET's SRecode stores template files in Emacs install dir??
+# Don't commit the generated file for now.
+srecode-map.el
+ac-comphist.dat
+auto-save-list
+bookmarks
+projectile-bookmarks.eld
+projectile.cache
+eshell
+/url/
+ido.last
+recentf
+project-explorer-cache
+network-security.data
+
+# Desktop State
+.emacs.desktop
+.emacs.desktop.lock
+saveplace
+history
+places
+
+# Compiled files
+modules/*.elc
+themes/*.elc
+extensions/*.elc
+
+# Taps
+taps/**
+
+# TRAMP cache
+tramp
+
+# Default custom file
+emacs-custom.el
+
+# forge database and stuff inside transient
+forge-database.sqlite
+transient/*
