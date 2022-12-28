@@ -8,11 +8,13 @@ before-init.el
 after-init.el
 prefs.el
 local
+.lsp-session-v1
 
 # Melpa packages
 elpa*/
 
 # Caches
+savefile/
 eln-cache/
 .cache/
 cider-history

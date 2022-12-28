@@ -876,3 +876,6 @@ the .elc exists. Also discard .elc without corresponding .el"
 
 (add-hook 'c-mode-hook 'maybe-cmake-project-mode)
 (add-hook 'c++-mode-hook 'maybe-cmake-project-mode)
+
+;; Attempt to speed up TRAMP
+(setq projectile-mode-line "Projectile")
