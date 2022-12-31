@@ -841,11 +841,14 @@ the .elc exists. Also discard .elc without corresponding .el"
             (lambda ()
               (setq tab-width 2)
               (setq typescript-indent-level tab-width)
-              (setq evil-shift-width typescript-indent-level))))
+            )))
 (use-package spacemacs-common
   :ensure spacemacs-theme
   :init
   :config (load-theme 'spacemacs-dark t))
+
+(use-package clang-format
+            :ensure t)
 
 (defun clang-format-save-hook-for-this-buffer ()
   "Create a buffer local save hook."
@@ -879,3 +882,6 @@ the .elc exists. Also discard .elc without corresponding .el"
 
 ;; Attempt to speed up TRAMP
 (setq projectile-mode-line "Projectile")
+
+;; allow copy of files from local to remote
+(use-package shadowfile)
