@@ -842,10 +842,6 @@ the .elc exists. Also discard .elc without corresponding .el"
               (setq tab-width 2)
               (setq typescript-indent-level tab-width)
             )))
-(use-package spacemacs-common
-  :ensure spacemacs-theme
-  :init
-  :config (load-theme 'spacemacs-dark t))
 
 (use-package clang-format
             :ensure t)
@@ -881,7 +877,8 @@ the .elc exists. Also discard .elc without corresponding .el"
 (add-hook 'c++-mode-hook 'maybe-cmake-project-mode)
 
 ;; Attempt to speed up TRAMP
-(setq projectile-mode-line "Projectile")
+;;(setq projectile-mode-line "Projectile")
 
 ;; allow copy of files from local to remote
-(use-package shadowfile)
+(use-package shadowfile
+  :ensure t)

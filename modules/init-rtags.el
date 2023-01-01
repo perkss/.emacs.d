@@ -126,6 +126,22 @@
 (require 'init-lib)
 (require 'init-prefs)
 (use-package rtags)
+
+;; (use-package lsp-mode
+;;   :hook ((prog-mode . lsp-deferred))
+;;   :commands (lsp lsp-deferred)
+;;   :config
+;;   (progn
+;;     (lsp-register-client
+;;      (make-lsp-client :new-connection (lsp-tramp-connection "clangd")
+;;                       :major-modes '(c-mode c++-mode)
+;;                       :remote? t
+;;                       :server-id 'clangd-remote))))
+
+;; (setq rtags-autostart-diagnostics t)
+;; (setq rtags-tramp-enabled t)
+;; (setq rtags-rc-log-enabled t)
+
 (pcase exordium-complete-mode
   (:auto-complete
    (use-package ac-rtags)
