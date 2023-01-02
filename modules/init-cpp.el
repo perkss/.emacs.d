@@ -175,7 +175,13 @@
 
 (use-package cmake-mode
   :mode (("/CMakeLists\\.txt\\'" . cmake-mode)
-         ("\\.cmake\\'" . cmake-mode)))
+         ("\\.cmake\\'" . cmake-mode))
+  :hook (cmake-mode . lsp-deferred))
+
+(use-package cmake-font-lock
+  :ensure t
+  :after cmake-mode
+  :config (cmake-font-lock-activate))
 
 (provide 'init-cpp)
 ;; Local Variables:
