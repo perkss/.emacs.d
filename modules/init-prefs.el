@@ -98,11 +98,6 @@ IF nil, disables CUA completely."
   :group 'exordium
   :type  'symbol)
 
-(defcustom exordium-enable-evil-mode nil
-  "If set to t, enables EVIL mode."
-  :group 'exordium
-  :type  'boolean)
-
 (defcustom exordium-enable-insert-gui-primary-selection nil
   "If set to t, binds Meta-Insert to insert-gui-primary-selection.
 This makes it easier to paste text from the Windows clipboard."

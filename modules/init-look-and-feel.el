@@ -161,14 +161,6 @@
 (when (boundp 'isearch-allow-scroll)
   (setq isearch-allow-scroll t))
 
-;;; Evil-mode
-(use-package evil)
-(if (and exordium-enable-evil-mode (fboundp 'evil-mode))
-    (evil-mode t)
-  ;; Evil mode depends in undo-tree, which thinks it should work by default
-  (when (boundp 'global-undo-tree-mode)
-    (global-undo-tree-mode -1)))
-
 (defun insert-gui-primary-selection ()
   "If no region is selected, insert current gui selection at point."
   (interactive)

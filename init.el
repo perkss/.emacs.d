@@ -16,6 +16,9 @@
 ;; Set the cmd as meta key
 (setq ns-command-modifier (quote meta))
 
+;; Increase read size for lsp attempt improve performance
+(setq read-process-output-max (* 1024 1024))
+
 (setq gc-cons-threshold 99999999)
 
 (let ((min-version "27.1"))
@@ -28,9 +31,9 @@
 Check the warnings and messages buffers, or restart with --debug-init")
 
 (setq ispell-program-name "hunspell")
-(setq ispell-local-dictionary "en_US")
+(setq ispell-local-dictionary "en_GB")
 (setq ispell-local-dictionary-alist
-      '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil nil nil utf-8)))
+      '(("en_GB" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil nil nil utf-8)))
 
 (if (file-exists-p "/usr/bin/hunspell")
     (progn
@@ -865,7 +868,8 @@ the .elc exists. Also discard .elc without corresponding .el"
 (add-hook 'c++-mode-hook (lambda () (clang-format-save-hook-for-this-buffer)))
 (add-hook 'glsl-mode-hook (lambda () (clang-format-save-hook-for-this-buffer)))
 
-(use-package cmake-project)
+(use-package cmake-project
+    :ensure t)
 
 (defun maybe-cmake-project-mode ()
   (if (or (file-exists-p "CMakeLists.txt")
@@ -876,9 +880,20 @@ the .elc exists. Also discard .elc without corresponding .el"
 (add-hook 'c-mode-hook 'maybe-cmake-project-mode)
 (add-hook 'c++-mode-hook 'maybe-cmake-project-mode)
 
+
+;; Disable ALl mouse clicks
+(use-package disable-mouse
+  :ensure t
+  :config
+  (global-disable-mouse-mode))
 ;; Attempt to speed up TRAMP
 ;;(setq projectile-mode-line "Projectile")
 
 ;; allow copy of files from local to remote
-(use-package shadowfile
-  :ensure t)
+;; (use-package shadowfile
+;;   :ensure t
+;;   :config
+;;   (shadow-initialize)
+;;   (setq shadow-literal-groups
+;;           '(("/Users/Stuart/Documents/LondonCodingSchool/Tutorials/codingchallenges/arraysandstrings/twosum.cpp"
+;;              "/Users/Stuart/Documents/Programming/c++/tutorials/codingchallenges/arraysandstrings/twosum.cpp"))))
