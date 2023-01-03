@@ -1,10 +1,4 @@
-;;;  ___      __   __   __
-
 ;;; EMACS Config based on EXORDIUM: https://github.com/emacs-exordium/exordium
-
-;; Reduce the frequency of garbage collection by making it happen on
-;; each 100MB of allocated data (the default is on every 0.76MB). This reduces
-;; the startup time.
 
 (setq dotfiles-lisp-dir
       (file-name-as-directory
@@ -16,8 +10,10 @@
 ;; Set the cmd as meta key
 (setq ns-command-modifier (quote meta))
 
+;; LSP Optimisations
 ;; Increase read size for lsp attempt improve performance
 (setq read-process-output-max (* 1024 1024))
+(setq lsp-idle-delay 0.500)
 
 (setq gc-cons-threshold 99999999)
 

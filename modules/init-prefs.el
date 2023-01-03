@@ -487,7 +487,7 @@ This is considered only when `exordium-complete-mode' is `:auto-complete'."
 
 
 ;;; See init-helm.el
-(defcustom exordium-helm-everywhere nil
+(defcustom exordium-helm-everywhere t
   "Whether Helm should be used as a substitute for common key bindings."
   :group 'exordium
   :type  'boolean)
