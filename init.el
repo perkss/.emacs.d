@@ -329,48 +329,6 @@ the .elc exists. Also discard .elc without corresponding .el"
 (use-package init-rtags-cmake :ensure nil)
 (use-package init-rtags-cdb :ensure nil)
 
-;; ensure that we use only rtags checking
-;; https://github.com/Andersbakken/rtags#optional-1
-(defun setup-flycheck-rtags ()
-  (interactive)
-  (flycheck-select-checker 'rtags)
-  ;; RTags creates more accurate overlays.
-  (setq-local flycheck-highlighting-mode nil)
-  (setq-local flycheck-check-syntax-automatically nil))
-
-
-(use-package rtags
-  :ensure t
-  ;; defer loading after 1 second to speed startup
-  :defer 1
-  :hook (c++-mode . rtags-start-process-unless-running)
-  :config
-  (message "Loaded rtags")
-  (setq rtags-autostart-diagnostics t)
-  ;; use standard C-c r <key> keybindings
-  (rtags-enable-standard-keybindings))
-
-(setq rtags-display-result-backend 'helm)
-
-
-
-(use-package company-rtags
-  :ensure t
-  ;; load immediately after rtags
-  :after rtags
-  :init
-  (setq rtags-completions-enabled t)
-  :config
-  ;; add to company backends only after package is loaded
-  (add-to-list 'company-backends 'company-rtags))
-
-(use-package ivy-rtags
-  :ensure t
-  ;; package is loaded automatically by rtags, no need to load manually
-  :defer t
-  :init
-  ;; use ivy autocompletion interface for displaying rtags suggestions
-  (setq rtags-display-result-backend 'ivy))
 (update-progress-bar)
 
 ;;; JS
