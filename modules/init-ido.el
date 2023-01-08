@@ -39,6 +39,8 @@
 (use-package recentf)
 
 (recentf-mode 1)
+;; Keep remote recent but dont check they exist
+(setq recentf-keep '(file-remote-p file-readable-p))
 (setq recentf-max-menu-items 25)
 
 (use-package ido-completing-read+

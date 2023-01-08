@@ -313,6 +313,9 @@ the .elc exists. Also discard .elc without corresponding .el"
 ;;; OS-specific things
 (use-package init-osx :ensure nil :if exordium-osx)
 
+;; Rust
+(use-package init-rust :ensure nil)
+
 ;;; C++
 (use-package init-cpp :ensure nil)
 (use-package init-bde-style :ensure nil)
@@ -426,7 +429,10 @@ the .elc exists. Also discard .elc without corresponding .el"
   :config
   (global-hl-todo-mode))
 
-
+(use-package lsp-java
+    :ensure t
+    :after lsp
+    :config (add-hook 'java-mode-hook 'lsp))
 
 (use-package rainbow-mode
   :ensure t
@@ -616,7 +622,7 @@ the .elc exists. Also discard .elc without corresponding .el"
   :config
   (global-set-key [remap kill-ring-save] 'easy-kill))
 
-
+;; TODO check into this behaviour
 (use-package exec-path-from-shell
   :ensure t
   :config
@@ -743,16 +749,6 @@ the .elc exists. Also discard .elc without corresponding .el"
 (use-package rjsx-mode
   :ensure t)
 
-;; Rust
-(use-package rust-mode
-  :mode "\\.rs\\'"
-  :config
-  (add-hook 'rust-mode-hook 'racer-mode)
-  (add-hook 'racer-mode-hook 'eldoc-mode)
-  (add-hook 'rust-mode-hook 'company-mode)
-  (add-hook 'rust-mode-hook 'flycheck-mode)
-  (setq company-tooltip-align-annotations t))
-
 (use-package sql-indent
   :ensure t)
 
@@ -820,10 +816,12 @@ the .elc exists. Also discard .elc without corresponding .el"
 ;; Run this for each mode you want to use the hook.
 (add-hook 'c-mode-hook (lambda () (clang-format-save-hook-for-this-buffer)))
 (add-hook 'c++-mode-hook (lambda () (clang-format-save-hook-for-this-buffer)))
+(add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++20")))
 (add-hook 'glsl-mode-hook (lambda () (clang-format-save-hook-for-this-buffer)))
 
 (use-package cmake-project
     :ensure t)
+
 
 (defun maybe-cmake-project-mode ()
   (if (or (file-exists-p "CMakeLists.txt")

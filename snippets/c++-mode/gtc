@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: gtest test case
+# key: gtc
+# group: testing
+# --
+TEST(${1:test_suite_name}, ${2:test_name})
+{
+    $0
+}
