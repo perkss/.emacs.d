@@ -434,6 +434,14 @@ the .elc exists. Also discard .elc without corresponding .el"
     :after lsp
     :config (add-hook 'java-mode-hook 'lsp))
 
+    ;; Rainbow parenthesis
+(use-package rainbow-delimiters
+     :ensure t
+     :config
+     (rainbow-delimiters-mode +1)
+     (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+
+    ;; Rainbow match highlights
 (use-package rainbow-mode
   :ensure t
   :config

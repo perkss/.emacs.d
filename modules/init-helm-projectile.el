@@ -74,6 +74,24 @@
   (when exordium-helm-everywhere
     (helm-projectile-on)))
 
+(use-package treemacs
+  :ensure t
+  :commands (treemacs-follow-mode
+             treemacs-filewatch-mode
+             treemacs-git-mode)
+  :config
+  (treemacs-follow-mode t)
+  (treemacs-filewatch-mode t))
+
+    (use-package treemacs-magit
+    :after magit
+    :autoload treemacs-magit--schedule-update
+    :hook ((magit-post-commit
+            git-commit-post-finish
+            magit-post-stage
+            magit-post-unstage)
+           . treemacs-magit--schedule-update))
+
 (use-package treemacs-projectile
   :bind
   (:map global-map
