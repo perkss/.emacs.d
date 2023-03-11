@@ -412,7 +412,7 @@ the .elc exists. Also discard .elc without corresponding .el"
 
 
 ;; enable y/n answers
-(fset 'yes-or-no-p 'y-or-n-p)
+;;(fset 'yes-or-no-p 'y-or-n-p)
 
 
 ;; more useful frame title, that show either a file or a
@@ -493,7 +493,8 @@ the .elc exists. Also discard .elc without corresponding .el"
 (use-package imenu-anywhere
   :ensure t
   :config
-  (global-set-key (kbd "C-.") #'imenu-anywhere))
+  ;;(global-set-key (kbd "C-.") #'imenu-anywhere)
+  )
 
 ;;Cucumber
 (use-package feature-mode
@@ -606,9 +607,9 @@ the .elc exists. Also discard .elc without corresponding .el"
 
 
 ;; don't use tabs for indent
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
-(setq indent-line-function 'insert-tab)
+;;(setq-default indent-tabs-mode nil)
+;;(setq-default tab-width 4)
+;;(setq indent-line-function 'insert-tab)
 (use-package elisp-slime-nav
   :ensure t
   :config
@@ -619,11 +620,6 @@ the .elc exists. Also discard .elc without corresponding .el"
 (use-package paren
   :config
   (show-paren-mode +1))
-
-(use-package windmove
-  :config
-  ;; use shift + arrow keys to switch between visible buffers
-  (windmove-default-keybindings))
 
 (use-package easy-kill
   :ensure t
