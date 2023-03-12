@@ -13,6 +13,8 @@
   "Customize your Emacs configuration."
   :group 'local)
 
+(setq exordium-display-powerline-after-idle-time 1)
+
 
 ;;; UI -- see init-look-and-feel.el
 
@@ -72,7 +74,7 @@ available font names by evaluating (font-family-list)."
   :group 'exordium
   :type  'boolean)
 
-(defcustom exordium-enable-newline-and-indent t
+(defcustom exordium-enable-newline-and-indent nil
   "If t, binds the return key to newline-and-indent, and
 shift-return for just newline.  If nil, do the opposite."
   :group 'exordium
@@ -233,7 +235,7 @@ i.e., with git pull."
 
 ;;; Autocomplete -- see init-autocomplete.el
 
-(defcustom exordium-complete-mode :auto-complete
+(defcustom exordium-complete-mode :company
   "Slect the completion engine for exordium.
 Possible values are `:auto-complete',`:company', and nil.
 Default is `:auto-complete'.  See also `exordium-rtags-auto-complete'."
