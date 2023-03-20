@@ -14,7 +14,7 @@
 ;;; https://github.com/capitaomorte/yasnippet/blob/master/README.mdown
 
 (use-package yasnippet)
-;;(yas-global-mode 1) ; always on
+(yas-global-mode 1) ; always on
 
 ;;; Directory tree where to find snippets (subdirectories must be mode names).
 ;;; The t means JIT loading, which saves time during Emacs startup.
