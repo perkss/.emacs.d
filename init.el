@@ -698,12 +698,6 @@ the .elc exists. Also discard .elc without corresponding .el"
   :config
   (volatile-highlights-mode +1))
 
-;; Side project viewer
-(use-package neotree
-  :ensure t
-  :config
-  (global-set-key [f8] 'neotree-toggle))
-
 (use-package highlight-symbol
   :ensure t
   :config
