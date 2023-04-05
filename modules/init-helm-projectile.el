@@ -26,7 +26,18 @@
   :bind-keymap
   ("C-c p" . projectile-command-map)
   :config
-  (projectile-mode))
+  (projectile-mode)
+  (progn
+    (setq projectile-globally-ignored-files
+          (append '(
+                "*.pyc"
+                "*.class"
+                "*~"
+                )
+              projectile-globally-ignored-files))
+    (helm-projectile-on)
+    (setq projectile-enable-caching t)
+    ))
 
 (use-package helm-projectile
   :init

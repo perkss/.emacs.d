@@ -466,16 +466,6 @@ the .elc exists. Also discard .elc without corresponding .el"
 (use-package csv-mode
   :mode "\\.csv\\'")
 
-(use-package ivy
-  :ensure t
-  :config
-  (ivy-mode 1)
-  (setq ivy-use-virtual-buffers t)
-  (setq enable-recursive-minibuffers t)
-  (global-set-key (kbd "C-c C-r") 'ivy-resume)
-  (global-set-key (kbd "<f6>") 'ivy-resume))
-
-
 (use-package diff-hl
   :ensure t
   :config
@@ -579,8 +569,6 @@ the .elc exists. Also discard .elc without corresponding .el"
 (use-package swiper-helm
   :ensure t)
 
-
-
 ;; temporarily highlight changes from yanking, etc
 (use-package volatile-highlights
   :ensure t
@@ -648,49 +636,6 @@ the .elc exists. Also discard .elc without corresponding .el"
   :config
   (setq whitespace-line-column 80) ;; limit line length
   (setq whitespace-style '(face tabs empty trailing lines-tail)))
-
-
-
-
-
-
-
-
-(use-package counsel
-  :ensure t
-  :config
-  (global-set-key (kbd "M-x") 'counsel-M-x)
-  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-  (global-set-key (kbd "<f1> f") 'counsel-describe-function)
-  (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-  (global-set-key (kbd "<f1> l") 'counsel-find-library)
-  (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-  (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-  (global-set-key (kbd "C-c g") 'counsel-git)
-  (global-set-key (kbd "C-c j") 'counsel-git-grep)
-  (global-set-key (kbd "C-c k") 'counsel-ag)
-  (global-set-key (kbd "C-x l") 'counsel-locate)
-  (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history))
-
-
-(use-package counsel-dash
-  :bind ("C-c C-h" . counsel-dash))
-
-(use-package counsel-gtags
-
-  :disabled t
-  :after counsel)
-
-
-(use-package counsel-projectile
-  :ensure t
-  :config
-  (counsel-projectile-mode)
-  (define-key projectile-mode-map [remap projectile-ag]
-    #'counsel-projectile-rg))
-
-(use-package counsel-tramp
-  :commands counsel-tramp)
 
 ;; temporarily highlight changes from yanking, etc
 (use-package volatile-highlights

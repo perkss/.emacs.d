@@ -416,7 +416,7 @@ to :simple. Enables modern-cpp-font-lock when set to :modern."
   :type  'symbol)
 
 ;;; See init-clojure.el
-(defcustom exordium-clojure nil
+(defcustom exordium-clojure t
   "Whether the development environment for Clojure is enabled or not."
   :group 'exordium
   :type  'boolean)
