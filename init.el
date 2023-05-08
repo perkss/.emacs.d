@@ -10,11 +10,6 @@
 ;; Set the cmd as meta key
 (setq ns-command-modifier (quote meta))
 
-;; LSP Optimisations
-;; Increase read size for lsp attempt improve performance
-(setq read-process-output-max (* 1024 1024))
-(setq lsp-idle-delay 0.500)
-
 (setq gc-cons-threshold 99999999)
 
 (let ((min-version "27.1"))
@@ -316,6 +311,11 @@ the .elc exists. Also discard .elc without corresponding .el"
 ;; Rust
 (use-package init-rust :ensure nil)
 
+;; Java
+(use-package init-java :ensure nil)
+;; Kotlin
+(use-package init-kotlin :ensure nil)
+
 ;;; C++
 (use-package init-cpp :ensure nil)
 (use-package init-bde-style :ensure nil)
@@ -428,11 +428,6 @@ the .elc exists. Also discard .elc without corresponding .el"
   :ensure t
   :config
   (global-hl-todo-mode))
-
-(use-package lsp-java
-    :ensure t
-    :after lsp
-    :config (add-hook 'java-mode-hook 'lsp))
 
     ;; Rainbow parenthesis
 (use-package rainbow-delimiters
@@ -563,8 +558,20 @@ the .elc exists. Also discard .elc without corresponding .el"
    web-mode-markup-indent-offset 2)
   :mode
   ("\\.erb\\'" . web-mode)
-  ("\\.html?\\'" . web-mode)
-  ("\\.tpl\\'" . web-mode))
+  ("\\.jsx\\'" . web-mode)
+  ("\\.js\\'" . web-mode)
+  ("\\.ts\\'" . web-mode)
+  ("\\.tsx\\'" . web-mode)
+  ("\\.html\\'" . web-mode)
+  ("\\.vue\\'" . web-mode)
+  ("\\.json\\'" . web-mode)
+  ("\\.tpl\\'" . web-mode)
+ (add-hook 'web-mode-hook
+            (lambda ()
+              (when (string-equal "tsx" (file-name-extension buffer-file-name))
+		(setup-tide-mode))))
+  ;; enable typescript-tslint checker
+  (flycheck-add-mode 'typescript-tslint 'web-mode))
 
 (use-package swiper-helm
   :ensure t)
@@ -577,6 +584,52 @@ the .elc exists. Also discard .elc without corresponding .el"
 
 (use-package flycheck-haskell
   :ensure t)
+
+
+(use-package ivy
+  :ensure t
+  :config
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
+  (setq enable-recursive-minibuffers t)
+  (global-set-key (kbd "C-c C-r") 'ivy-resume)
+  (global-set-key (kbd "<f6>") 'ivy-resume))
+
+(use-package counsel
+  :ensure t
+  :config
+;;  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+  (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+  (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+  (global-set-key (kbd "<f1> l") 'counsel-find-library)
+  (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+  (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+  (global-set-key (kbd "C-c g") 'counsel-git)
+  (global-set-key (kbd "C-c j") 'counsel-git-grep)
+  (global-set-key (kbd "C-c k") 'counsel-ag)
+  (global-set-key (kbd "C-x l") 'counsel-locate)
+  (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history))
+
+
+(use-package counsel-dash
+  :bind ("C-c C-h" . counsel-dash))
+
+(use-package counsel-gtags
+
+  :disabled t
+  :after counsel)
+
+
+(use-package counsel-projectile
+  :ensure t
+  :config
+  (counsel-projectile-mode)
+  (define-key projectile-mode-map [remap projectile-ag]
+    #'counsel-projectile-rg))
+
+(use-package counsel-tramp
+  :commands counsel-tramp)
 
 
 (use-package hardcore-mode
@@ -698,17 +751,6 @@ the .elc exists. Also discard .elc without corresponding .el"
 (use-package github-browse-file
   :ensure t)
 
-;; Python
-(use-package jedi
-  :ensure t)
-
-(use-package pytest
-  :ensure t)
-
-(use-package company-jedi
-  :ensure t)
-
-
 (update-progress-bar)
 (show-paren-mode)
 
@@ -732,6 +774,8 @@ the .elc exists. Also discard .elc without corresponding .el"
 ;;; Typescript
 (use-package typescript-mode
   :ensure t
+  :after lsp-mode
+  :mode ("\.ts$")
   :init
   (add-hook 'typescript-mode-hook
             (lambda ()
@@ -739,8 +783,21 @@ the .elc exists. Also discard .elc without corresponding .el"
               (setq typescript-indent-level tab-width)
             )))
 
+(use-package tide
+  :init
+  :ensure t
+  :after (typescript-mode company flycheck)
+  :hook ((typescript-mode . tide-setup)
+         (typescript-mode . tide-hl-identifier-mode)
+         (before-save . tide-format-before-save)))
+
+(add-hook 'web-mode-hook
+          (lambda ()
+            (when (string-equal "jsx" (file-name-extension buffer-file-name))
+              (setup-tide-mode))))
+
 (use-package clang-format
-            :ensure t)
+  :ensure t)
 
 (defun clang-format-save-hook-for-this-buffer ()
   "Create a buffer local save hook."

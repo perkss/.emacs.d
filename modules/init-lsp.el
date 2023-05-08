@@ -7,7 +7,9 @@
 
 (use-package flycheck
   :commands flycheck-mode
-  :init (global-flycheck-mode))
+  :init (global-flycheck-mode)
+  :config
+  (add-hook 'typescript-mode-hook 'flycheck-mode))
 
 (use-package flycheck-pos-tip
   :after flycheck
@@ -38,7 +40,17 @@
 
 (use-package lsp-mode
   :if exordium-lsp-mode-enable
-  :hook ((c-mode-common  . lsp))
+  :hook ((c-mode-common  . lsp)
+         (typescript-mode . lsp)
+;;         (c++-mode  . lsp)
+  ;;       (c-or-c++-mode  . lsp)
+         (java-mode . lsp)
+         (js-mode . lsp)
+         (js-jsx-mode . lsp)
+         (python-mode . lsp)
+         (web-mode . lsp)
+         (haskell-mode . lsp)
+         )
   :init
   (setq-default lsp-clients-clangd-executable
                 (seq-find #'executable-find exordium-lsp-clangd-executable))
@@ -52,8 +64,9 @@
   (setq lsp-flycheck-live-reporting t)
   ;; company mode configuration for lsp-mode
   (setq lsp-completion-provider :capf)
-  (setq company-minimum-prefix-length 1
-        company-idle-delay 0.0)
+  (setq company-minimum-prefix-length 1 ;; set in the company config
+        company-idle-delay 0.2
+        comapny-echo-delay 0.2)
 
   ;; process buffer for the LSP server needs to be larger
   (setq read-process-output-max (* 1024 1024)) ;; 1mb
@@ -62,9 +75,12 @@
   (setq lsp-enable-semantic-highlighting t)
 
   (setq lsp-idle-delay 0.1) ;; clangd is fast
-
+;;    (global-set-key (kbd "s-b") 'lsp-find-references)
+;;  (global-set-key (kbd "C-SPC") 'completion-at-point)
+  ;;  (global-set-key (kbd "M-s-l") 'lsp-format-buffer)
+  (global-set-key (kbd "<M-return>") 'lsp-execute-code-action)
   (setq treemacs-space-between-root-nodes nil)
-
+  (setq lsp-completion-enable t lsp-enable-on-type-formatting t)
   (setq lsp-log-io t)
   :custom
   (lsp-rust-analyzer-cargo-watch-command "clippy")

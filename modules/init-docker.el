@@ -10,6 +10,4 @@
   :config
   (setq-default docker-use-sudo nil))
 
-(use-package docker-tramp)
-
 (provide 'init-docker)

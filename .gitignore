@@ -1,3 +1,8 @@
+backups/
+workspace/
+company-statistics-cache.el
+eclipse.jdt.ls/
+shadow_todo
 # Local modules specific to this machine
 # Old names:
 init_local.el

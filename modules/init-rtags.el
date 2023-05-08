@@ -180,10 +180,11 @@
       (rtags-find-symbol-at-point other-window))))
 
 ;; Alias for C-c r ,
-(define-key c-mode-base-map "\M-," (function rtags-find-references-at-point))
+(define-key c-mode-base-map "\M-p" (function rtags-find-references-at-point))
 
 ;; Alias for C-c r [
 (define-key c-mode-base-map [(control c) (r) (left)] (function rtags-location-stack-back))
+(define-key c-mode-base-map "\M-," (function rtags-location-stack-back))
 ;; Alias for C-c r [
 (define-key c-mode-base-map [(control c) (r) (right)] (function rtags-location-stack-forward))
 
