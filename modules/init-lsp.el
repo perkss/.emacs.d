@@ -42,8 +42,8 @@
   :if exordium-lsp-mode-enable
   :hook ((c-mode-common  . lsp)
          (typescript-mode . lsp)
-;;         (c++-mode  . lsp)
-  ;;       (c-or-c++-mode  . lsp)
+         (c++-mode  . lsp)
+         (c-mode  . lsp)
          (java-mode . lsp)
          (js-mode . lsp)
          (js-jsx-mode . lsp)
@@ -65,8 +65,8 @@
   ;; company mode configuration for lsp-mode
   (setq lsp-completion-provider :capf)
   (setq company-minimum-prefix-length 1 ;; set in the company config
-        company-idle-delay 0.2
-        comapny-echo-delay 0.2)
+        company-idle-delay 0.01
+        company-echo-delay 0.05)
 
   ;; process buffer for the LSP server needs to be larger
   (setq read-process-output-max (* 1024 1024)) ;; 1mb
@@ -75,9 +75,6 @@
   (setq lsp-enable-semantic-highlighting t)
 
   (setq lsp-idle-delay 0.1) ;; clangd is fast
-;;    (global-set-key (kbd "s-b") 'lsp-find-references)
-;;  (global-set-key (kbd "C-SPC") 'completion-at-point)
-  ;;  (global-set-key (kbd "M-s-l") 'lsp-format-buffer)
   (global-set-key (kbd "<M-return>") 'lsp-execute-code-action)
   (setq treemacs-space-between-root-nodes nil)
   (setq lsp-completion-enable t lsp-enable-on-type-formatting t)

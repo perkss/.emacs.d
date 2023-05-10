@@ -23,8 +23,8 @@
         lsp-java-format-enabled nil)
 
   (add-hook 'java-mode-hook 'lsp)
-(add-hook 'java-mode-hook 'flycheck-mode)
-(add-hook 'java-mode-hook 'company-mode)
+  (add-hook 'java-mode-hook 'flycheck-mode)
+  (add-hook 'java-mode-hook 'company-mode)
 )
 
 

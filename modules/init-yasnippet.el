@@ -20,15 +20,15 @@
 ;;; The t means JIT loading, which saves time during Emacs startup.
 (yas-load-directory (locate-user-emacs-file "snippets") t)
 
-;;; Enable YAS only for C++
-(add-hook 'c-mode-common-hook
-          '(lambda ()
-             (yas-minor-mode)))
+;; ;;; Enable YAS only for C++
+;; (add-hook 'c-mode-common-hook
+;;           '(lambda ()
+;;              (yas-minor-mode)))
 
 ;;; Trigger key
 (define-key yas-minor-mode-map (kbd "<tab>") nil)
 (define-key yas-minor-mode-map (kbd "TAB") nil)
-(define-key yas-minor-mode-map (kbd "C-c y") 'yas-expand)
+(define-key yas-minor-mode-map (kbd "C-c y y") 'yas-expand)
 
 ;;; Don't show this minor mode in the modeline
 (diminish 'yas-minor-mode)

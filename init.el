@@ -565,13 +565,7 @@ the .elc exists. Also discard .elc without corresponding .el"
   ("\\.html\\'" . web-mode)
   ("\\.vue\\'" . web-mode)
   ("\\.json\\'" . web-mode)
-  ("\\.tpl\\'" . web-mode)
- (add-hook 'web-mode-hook
-            (lambda ()
-              (when (string-equal "tsx" (file-name-extension buffer-file-name))
-		(setup-tide-mode))))
-  ;; enable typescript-tslint checker
-  (flycheck-add-mode 'typescript-tslint 'web-mode))
+  ("\\.tpl\\'" . web-mode))
 
 (use-package swiper-helm
   :ensure t)

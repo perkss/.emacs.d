@@ -126,4 +126,14 @@ time otherwise)"
   ;; Restore the old function
   (defalias 'imp--send-state 'imp--send-state-old))
 
+(defun company-my-setup ()
+  (when (boundp 'company-backends)
+    (make-local-variable 'company-backends)
+    ;; remove
+    (setq company-backends (delete 'company-dabbrev company-backends))
+    ;; add
+    (add-to-list 'company-backends 'company-dabbrev)))
+
+(add-hook 'markdown-major-mode-hook 'company-my-setup)
+
 (provide 'init-markdown)

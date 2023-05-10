@@ -13,17 +13,17 @@
   ;; Turn on company mode everywhere
   (global-company-mode)
   (add-to-list 'company-backends '(company-capf
-                                  company-keywords
-                        company-semantic
-                        company-files
-                        company-etags
-                        company-elisp
+;;                                  company-keywords
+;;                        company-semantic
+;;                        company-files
+;;                        company-etags
+;;                        company-elisp
                         company-clang
                         company-jedi
                         company-cmake
-                        company-ispell
-                        company-yasnippet
-                         company-dabbrev
+;;                        company-ispell
+;;                        company-yasnippet
+                         company-dabbrev-code
                                    )) ;;company-dabbrev https://company-mode.github.io/manual/Backends.html
   (setq company-idle-delay nil)
   :bind
@@ -32,9 +32,10 @@
         ("<escape>" . #'company-abort)
         ;; Key to force trigger company-complete
         :map global-map
-        ("C-." . #'company-complete)))
+        ("C-." . #'company-complete)
+        ("C-c y" . #'company-yasnippet)))
 
-
+;;(global-set-key (kbd "C-c y") 'company-yasnippet)
 (setq company-dabbrev-downcase nil)
 ;;        company-show-numbers f
 ;;        company-dabbrev-downcase nil
