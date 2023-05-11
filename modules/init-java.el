@@ -1,5 +1,8 @@
-;;;;;;;; Configuration for Java
+;;; init-java --- Configuration for Java
 
+;;; Commentary:
+
+;;; Code:
 (use-package lsp-java
   :ensure t
   :after lsp
@@ -46,5 +49,5 @@
   :hook
   (kotlin-mode . lsp))
 
-
 (provide 'init-java)
+;;; init-java.el ends here

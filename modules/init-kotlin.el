@@ -1,5 +1,8 @@
-;;;;;; Configuration for Kotlin
+;;; init-kotlin --- Configuration for Kotlin
 
+;;; Commentary:
+
+;;; Code:
 (use-package kotlin-mode
   :after (lsp-mode dap-mode)
   :config
@@ -30,3 +33,4 @@
 (setq lsp-ui-sideline-show-code-actions t)
 
 (provide 'init-kotlin)
+;;; init-kotlin.el ends here
