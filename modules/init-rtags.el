@@ -172,7 +172,7 @@
 (rtags-enable-standard-keybindings c-mode-base-map "\C-cr")
 
 ;; Alias for C-c r . This key recenters the buffer if needed.
-(define-key c-mode-base-map "\M-."
+(define-key c-mode-base-map "\M-r"
   (lambda (other-window)
     (interactive "P")
     (let ((rtags-after-find-file-hook rtags-after-find-file-hook))
@@ -180,10 +180,11 @@
       (rtags-find-symbol-at-point other-window))))
 
 ;; Alias for C-c r ,
-(define-key c-mode-base-map "\M-," (function rtags-find-references-at-point))
+(define-key c-mode-base-map "C-c r ," (function rtags-find-references-at-point))
 
 ;; Alias for C-c r [
 (define-key c-mode-base-map [(control c) (r) (left)] (function rtags-location-stack-back))
+
 ;; Alias for C-c r [
 (define-key c-mode-base-map [(control c) (r) (right)] (function rtags-location-stack-forward))
 

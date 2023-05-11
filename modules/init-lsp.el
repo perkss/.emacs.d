@@ -7,7 +7,9 @@
 
 (use-package flycheck
   :commands flycheck-mode
-  :init (global-flycheck-mode))
+  :init (global-flycheck-mode)
+  :config
+  (add-hook 'typescript-mode-hook 'flycheck-mode))
 
 (use-package flycheck-pos-tip
   :after flycheck
@@ -38,7 +40,17 @@
 
 (use-package lsp-mode
   :if exordium-lsp-mode-enable
-  :hook ((c-mode-common  . lsp))
+  :hook ((c-mode-common  . lsp)
+         (typescript-mode . lsp)
+         (c++-mode  . lsp)
+         (c-mode  . lsp)
+         (java-mode . lsp)
+         (js-mode . lsp)
+         (js-jsx-mode . lsp)
+         (python-mode . lsp)
+         (web-mode . lsp)
+         (haskell-mode . lsp)
+         )
   :init
   (setq-default lsp-clients-clangd-executable
                 (seq-find #'executable-find exordium-lsp-clangd-executable))
@@ -52,8 +64,9 @@
   (setq lsp-flycheck-live-reporting t)
   ;; company mode configuration for lsp-mode
   (setq lsp-completion-provider :capf)
-  (setq company-minimum-prefix-length 1
-        company-idle-delay 0.0)
+  (setq company-minimum-prefix-length 1 ;; set in the company config
+        company-idle-delay 0.01
+        company-echo-delay 0.05)
 
   ;; process buffer for the LSP server needs to be larger
   (setq read-process-output-max (* 1024 1024)) ;; 1mb
@@ -62,9 +75,9 @@
   (setq lsp-enable-semantic-highlighting t)
 
   (setq lsp-idle-delay 0.1) ;; clangd is fast
-
+  (global-set-key (kbd "<M-return>") 'lsp-execute-code-action)
   (setq treemacs-space-between-root-nodes nil)
-
+  (setq lsp-completion-enable t lsp-enable-on-type-formatting t)
   (setq lsp-log-io t)
   :custom
   (lsp-rust-analyzer-cargo-watch-command "clippy")
@@ -99,13 +112,13 @@
         lsp-lens-enable t)
   :commands lsp-ui-mode)
 
-(use-package helm-xref
-  :ensure t
-  :after helm
-  :if exordium-helm-everywhere
-  :commands helm-xref
-  :config
-  (setq xref-show-xrefs-function 'helm-xref-show-xrefs))
+;; (use-package helm-xref
+;;   :ensure t
+;;   :after helm
+;;   :if exordium-helm-everywhere
+;;   :commands helm-xref
+;;   :config
+;;   (setq xref-show-xrefs-function 'helm-xref-show-xrefs))
 
 (use-package helm-lsp
   :after (lsp-mode helm)
@@ -151,6 +164,15 @@
 ;;             "\n")))
 
 ;; (advice-add 'lsp--make-message :override #'lsp--make-message@override)
+
+;; Attempt to resolve find references issue https://github.com/emacs-lsp/lsp-java/issues/122
+;; This is required to make xref-find-references work in helm-mode.
+;; In helm-mode, it gives a prompt and asks the identifier (which has no text property) and then passes it to lsp-mode, which requires the text property at point to locate the references.
+;; (setq xref-prompt-for-identifier '(not xref-find-definitions
+;;                                        xref-find-definitions-other-window
+;;                                        xref-find-definitions-other-frame
+;;                                        xref-find-references
+;;                                        ))
 
 (provide 'init-lsp)
 ;;; init-lsp.el ends here

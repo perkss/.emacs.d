@@ -48,4 +48,8 @@
     (setq exec-path (split-string path-from-shell path-separator))))
 (set-exec-path-for-lein)
 
+(add-hook 'clojure-mode-hook 'lsp)
+(add-hook 'clojurescript-mode-hook 'lsp)
+(add-hook 'clojurec-mode-hook 'lsp)
+
 (provide 'init-clojure)
