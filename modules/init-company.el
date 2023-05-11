@@ -12,18 +12,19 @@
   (setq rtags-completions-enabled t)
   ;; Turn on company mode everywhere
   (global-company-mode)
-  (add-to-list 'company-backends '(company-capf
-;;                                  company-keywords
-;;                        company-semantic
-;;                        company-files
-;;                        company-etags
-;;                        company-elisp
+  (add-to-list 'company-backends '(
+                                   company-capf
                         company-clang
-                        company-jedi
+                        company-keywords
                         company-cmake
+                        company-jedi
+                        company-semantic
+                        company-files
+                                   :with
+                                   company-yasnippet
+                                   company-dabbrev-code
+;;                                   company-dabbrev
 ;;                        company-ispell
-;;                        company-yasnippet
-                         company-dabbrev-code
                                    )) ;;company-dabbrev https://company-mode.github.io/manual/Backends.html
   (setq company-idle-delay nil)
   :bind
@@ -41,7 +42,6 @@
 ;;        company-dabbrev-downcase nil
 (use-package company-jedi
   :ensure t)
-
 
 (use-package company-statistics
   :ensure t

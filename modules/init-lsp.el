@@ -112,13 +112,13 @@
         lsp-lens-enable t)
   :commands lsp-ui-mode)
 
-(use-package helm-xref
-  :ensure t
-  :after helm
-  :if exordium-helm-everywhere
-  :commands helm-xref
-  :config
-  (setq xref-show-xrefs-function 'helm-xref-show-xrefs))
+;; (use-package helm-xref
+;;   :ensure t
+;;   :after helm
+;;   :if exordium-helm-everywhere
+;;   :commands helm-xref
+;;   :config
+;;   (setq xref-show-xrefs-function 'helm-xref-show-xrefs))
 
 (use-package helm-lsp
   :after (lsp-mode helm)
@@ -164,6 +164,15 @@
 ;;             "\n")))
 
 ;; (advice-add 'lsp--make-message :override #'lsp--make-message@override)
+
+;; Attempt to resolve find references issue https://github.com/emacs-lsp/lsp-java/issues/122
+;; This is required to make xref-find-references work in helm-mode.
+;; In helm-mode, it gives a prompt and asks the identifier (which has no text property) and then passes it to lsp-mode, which requires the text property at point to locate the references.
+;; (setq xref-prompt-for-identifier '(not xref-find-definitions
+;;                                        xref-find-definitions-other-window
+;;                                        xref-find-definitions-other-frame
+;;                                        xref-find-references
+;;                                        ))
 
 (provide 'init-lsp)
 ;;; init-lsp.el ends here

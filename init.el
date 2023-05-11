@@ -1,5 +1,6 @@
-;;; EMACS Config based on EXORDIUM: https://github.com/emacs-exordium/exordium
-
+;;; init --- Entry point of config  based on EXORDIUM: https://github.com/emacs-exordium/exordium
+;;; Commentary:
+;;; Code:
 (setq dotfiles-lisp-dir
       (file-name-as-directory
        (concat (file-name-directory
@@ -608,16 +609,6 @@ the .elc exists. Also discard .elc without corresponding .el"
   (global-set-key (kbd "C-x l") 'counsel-locate)
   (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history))
 
-
-(use-package counsel-dash
-  :bind ("C-c C-h" . counsel-dash))
-
-(use-package counsel-gtags
-
-  :disabled t
-  :after counsel)
-
-
 (use-package counsel-projectile
   :ensure t
   :config
@@ -627,7 +618,6 @@ the .elc exists. Also discard .elc without corresponding .el"
 
 (use-package counsel-tramp
   :commands counsel-tramp)
-
 
 (use-package hardcore-mode
   :ensure t
@@ -811,14 +801,15 @@ the .elc exists. Also discard .elc without corresponding .el"
   :ensure t
   :config
   (global-disable-mouse-mode))
-;; Attempt to speed up TRAMP
-;;(setq projectile-mode-line "Projectile")
 
-;; allow copy of files from local to remote
-;; (use-package shadowfile
-;;   :ensure t
-;;   :config
-;;   (shadow-initialize)
-;;   (setq shadow-literal-groups
-;;           '(("/Users/Stuart/Documents/LondonCodingSchool/Tutorials/codingchallenges/arraysandstrings/twosum.cpp"
-;;              "/Users/Stuart/Documents/Programming/c++/tutorials/codingchallenges/arraysandstrings/twosum.cpp"))))
+
+(use-package tree-sitter-langs
+  :ensure t)
+
+(global-set-key
+ (kbd "M-.")
+ 'xref-find-definitions)
+
+(global-set-key
+ (kbd "M-,")
+ 'xref-go-back)

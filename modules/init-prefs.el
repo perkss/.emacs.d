@@ -245,7 +245,7 @@ Default is `:auto-complete'.  See also `exordium-rtags-auto-complete'."
 
 ;;; Themes -- see themes directory
 
-(defcustom exordium-theme 'zenburn
+(defcustom exordium-theme 'material
   "Theme to load on startup. Use nil to not load any theme,
 otherwise use one of the following:
 - tomorrow-day, tomorrow-night, tomorrow-night-bright,
