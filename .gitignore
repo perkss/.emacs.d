@@ -14,6 +14,7 @@ after-init.el
 prefs.el
 local
 .lsp-session-v1
+.dap-breakpoints
 
 # Melpa packages
 elpa*/
