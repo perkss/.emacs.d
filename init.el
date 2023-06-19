@@ -453,6 +453,12 @@ the .elc exists. Also discard .elc without corresponding .el"
 (use-package ag
   :ensure t)
 
+(use-package ripgrep
+  :ensure t)
+
+(use-package rg
+  :ensure t)
+
 (use-package kibit-helper
   :ensure t)
 
