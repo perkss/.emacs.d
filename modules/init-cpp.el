@@ -178,6 +178,8 @@
          ("\\.cmake\\'" . cmake-mode))
   :hook (cmake-mode . lsp-deferred))
 
+;;(use-package dap-cpptools-setup)
+
 (use-package cmake-font-lock
   :ensure t
   :after cmake-mode

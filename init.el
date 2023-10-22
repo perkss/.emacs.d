@@ -785,7 +785,8 @@ the .elc exists. Also discard .elc without corresponding .el"
 ;; Run this for each mode you want to use the hook.
 (add-hook 'c-mode-hook (lambda () (clang-format-save-hook-for-this-buffer)))
 (add-hook 'c++-mode-hook (lambda () (clang-format-save-hook-for-this-buffer)))
-(add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++20")))
+(add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++17")))
+(add-hook 'c/c++-clang (lambda () (setq flycheck-gcc-language-standard "c++17")))
 (add-hook 'glsl-mode-hook (lambda () (clang-format-save-hook-for-this-buffer)))
 
 (use-package cmake-project
