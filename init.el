@@ -273,8 +273,6 @@ the .elc exists. Also discard .elc without corresponding .el"
 (use-package init-util :ensure nil)            ; utilities like match paren, bookmarks...
 (use-package init-ido :ensure nil)             ; supercharged completion engine
 (use-package init-highlight :ensure nil)       ; highlighting current line, symbol under point
-(use-package init-autocomplete :ensure nil
-  :if (eq exordium-complete-mode :auto-complete))
 (use-package init-company :ensure nil
   :if (eq exordium-complete-mode :company))
 

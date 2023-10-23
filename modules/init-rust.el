@@ -17,9 +17,18 @@
               ("C-c C-c s" . lsp-rust-analyzer-status))
   :config
   ;; uncomment for less flashiness
-  ;; (setq lsp-eldoc-hook nil)
+  (setq lsp-eldoc-hook nil)
   ;; (setq lsp-enable-symbol-highlighting nil)
   ;; (setq lsp-signature-auto-activate nil)
+  (setq lsp-rust-analyzer-cargo-watch-command "clippy")
+  ;; enable / disable the hints as you prefer:
+  (setq lsp-rust-analyzer-server-display-inlay-hints t)
+  (setq lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial")
+  (setq lsp-rust-analyzer-display-chaining-hints t)
+  (setq lsp-rust-analyzer-display-lifetime-elision-hints-use-parameter-names nil)
+  (setq lsp-rust-analyzer-display-closure-return-type-hints t)
+  (setq lsp-rust-analyzer-display-parameter-hints nil)
+  (setq lsp-rust-analyzer-display-reborrow-hints nil)
 
   ;; comment to disable rustfmt on save
   (setq rustic-format-on-save t)

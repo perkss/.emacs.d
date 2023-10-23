@@ -15,28 +15,11 @@
   :after flycheck
   :defines flycheck-pos-tip-timeout
   :hook (global-flycheck-mode . flycheck-pos-tip-mode)
-  :config (setq flycheck-pos-tip-timeout 30))
+  :config (setq flycheck-pos-tip-timeout 15))
 
 ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
 (setq lsp-keymap-prefix exordium-lsp-keymap-prefix)
 
-;;(use-package flycheck-joker
-;;  :ensure t)
-
-
-(use-package flycheck-clojure
-  :ensure t
-  :config
-  (eval-after-load 'flycheck '(flycheck-clojure-setup)))
-
-;;(use-package flycheck-cask
-  ;;:ensure t)
-
-;;(use-package flyspell-lazy
-  ;;:ensure t)
-
-;;(use-package flycheck-tip
-  ;;:ensure t)
 
 (use-package lsp-mode
   :if exordium-lsp-mode-enable
@@ -64,9 +47,6 @@
   (setq lsp-flycheck-live-reporting t)
   ;; company mode configuration for lsp-mode
   (setq lsp-completion-provider :capf)
-  (setq company-minimum-prefix-length 1 ;; set in the company config
-        company-idle-delay 0.01
-        company-echo-delay 0.05)
 
   ;; process buffer for the LSP server needs to be larger
   (setq read-process-output-max (* 1024 1024)) ;; 1mb
@@ -74,21 +54,13 @@
   ;; semantic hilite via lsp server
   (setq lsp-enable-semantic-highlighting t)
 
-  (setq lsp-idle-delay 0.1) ;; clangd is fast
+  (setq lsp-idle-delay 0.5) ;; clangd is fast
   (global-set-key (kbd "<M-return>") 'lsp-execute-code-action)
   (setq treemacs-space-between-root-nodes nil)
   (setq lsp-completion-enable t lsp-enable-on-type-formatting t)
-  (setq lsp-log-io t)
-  :custom
-  (lsp-rust-analyzer-cargo-watch-command "clippy")
-  ;; enable / disable the hints as you prefer:
-  (lsp-rust-analyzer-server-display-inlay-hints t)
-  (lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial")
-  (lsp-rust-analyzer-display-chaining-hints t)
-  (lsp-rust-analyzer-display-lifetime-elision-hints-use-parameter-names nil)
-  (lsp-rust-analyzer-display-closure-return-type-hints t)
-  (lsp-rust-analyzer-display-parameter-hints nil)
-  (lsp-rust-analyzer-display-reborrow-hints nil)
+  (setq lsp-log-io nil)
+  (setq lsp-signature-render-document nil)
+  ;; :custom
 )
 
 (use-package lsp-ui
@@ -142,6 +114,15 @@
   (require 'dap-gdb-lldb)
   (dap-ui-mode 1)
   (dap-tooltip-mode 1)
+  (dap-gdb-lld-setup)
+  (dap-register-debug-template
+   "Rust::LLDB Run Config"
+   (list :type "lldb"
+         :request "launch"
+         :name "LLDB::Run"
+         :gdbpath "rust-lldb"
+         :target nil
+         :cwd nil))
   :commands dap-mode)
 
 (use-package which-key
@@ -152,27 +133,8 @@
 (use-package flycheck-haskell
   :ensure t)
 
-;; ;; Terrible hack working around off by one error between TRAMP and lsp-mode
-;; (defun lsp--make-message@override (params)
-;;   "Create a LSP message from PARAMS, after encoding it to a JSON string."
-;;   (let ((body (lsp--json-serialize params)))
-;;     (concat "Content-Length: "
-;;             (number-to-string (+ 2 (string-bytes body))) ;; dirty fix for pyls remote (https://github.com/emacs-lsp/lsp-mode/issues/1845#issuecomment-699169414)
-;;             ;;(number-to-string (1+ (string-bytes body)))
-;;             "\r\n\r\n"
-;;             body
-;;             "\n")))
-
-;; (advice-add 'lsp--make-message :override #'lsp--make-message@override)
-
-;; Attempt to resolve find references issue https://github.com/emacs-lsp/lsp-java/issues/122
-;; This is required to make xref-find-references work in helm-mode.
-;; In helm-mode, it gives a prompt and asks the identifier (which has no text property) and then passes it to lsp-mode, which requires the text property at point to locate the references.
-;; (setq xref-prompt-for-identifier '(not xref-find-definitions
-;;                                        xref-find-definitions-other-window
-;;                                        xref-find-definitions-other-frame
-;;                                        xref-find-references
-;;                                        ))
+(with-eval-after-load 'lsp-mode
+  (require 'dap-cpptools))
 
 (provide 'init-lsp)
 ;;; init-lsp.el ends here

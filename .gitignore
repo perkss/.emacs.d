@@ -18,6 +18,7 @@ local
 
 # Melpa packages
 elpa*/
+elpy/
 
 # Caches
 savefile/
@@ -64,3 +65,4 @@ emacs-custom.el
 # forge database and stuff inside transient
 forge-database.sqlite
 transient/*
+anaconda-mode
