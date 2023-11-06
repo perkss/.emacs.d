@@ -66,3 +66,4 @@ emacs-custom.el
 forge-database.sqlite
 transient/*
 anaconda-mode
+tree-sitter/*

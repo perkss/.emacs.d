@@ -31,6 +31,7 @@
          (js-mode . lsp)
          (js-jsx-mode . lsp)
          (python-mode . lsp)
+         (python-ts-mode . lsp)
          (web-mode . lsp)
          (haskell-mode . lsp)
          )
@@ -54,12 +55,24 @@
   ;; semantic hilite via lsp server
   (setq lsp-enable-semantic-highlighting t)
 
-  (setq lsp-idle-delay 0.5) ;; clangd is fast
+  (setq lsp-idle-delay 0.1) ;; clangd is fast
   (global-set-key (kbd "<M-return>") 'lsp-execute-code-action)
   (setq treemacs-space-between-root-nodes nil)
   (setq lsp-completion-enable t lsp-enable-on-type-formatting t)
   (setq lsp-log-io nil)
   (setq lsp-signature-render-document nil)
+  (setq lsp-pyls-plugins-flake8-enabled t)
+  (setq lsp-enable-snippet nil)
+  (lsp-register-custom-settings
+   '(("pyls.plugins.pyls_mypy.enabled" t t)
+     ("pyls.plugins.pyls_mypy.live_mode" nil t)
+     ("pyls.plugins.pyls_black.enabled" t t)
+     ("pyls.plugins.pyls_isort.enabled" t t)
+
+     ;; Disable these as they're duplicated by flake8
+     ("pyls.plugins.pycodestyle.enabled" nil t)
+     ("pyls.plugins.mccabe.enabled" nil t)
+     ("pyls.plugins.pyflakes.enabled" nil t)))
   ;; :custom
 )
 

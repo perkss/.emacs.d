@@ -13,21 +13,21 @@
   ;; Turn on company mode everywhere
   (global-company-mode)
   (add-to-list 'company-backends '(company-capf company-dabbrev-code company-clang :with company-yasnippet))
-  (add-to-list 'company-backends '(
-                                   company-keywords
-                                   company-cmake
-                                   company-jedi
-                                   ;;                        company-semantic
-                                   company-files
-                                   :with
-                                   company-yasnippet
-                                   company-dabbrev-code
-                                   company-dabbrev
-                                   ;;                        company-ispell
-                                   )) ;;company-dabbrev https://company-mode.github.io/manual/Backends.html
+  ;; (add-to-list 'company-backends '(
+  ;;                                  company-keywords
+  ;;                                  company-cmake
+  ;;                                  company-jedi
+  ;;                                  ;;                        company-semantic
+  ;;                                  company-files
+  ;;                                  :with
+  ;;                                  company-yasnippet
+  ;;                                  company-dabbrev-code
+  ;;                                  company-dabbrev
+  ;;                                  ;;                        company-ispell
+  ;;                                  )) ;;company-dabbrev https://company-mode.github.io/manual/Ba
   (setq company-idle-delay (lambda () (if (company-in-string-or-comment) nil 0.2)))
   (setq company-minium-prefix-length 2)
-  (setq company-echo-delay 0.5)
+  (setq company-echo-delay 0.2)
   (setq company-dabbrev-ignore-case t)
   (setq company-dabbrev-downcase t)
   (setq company-dabbrev-minimum-length 4)
