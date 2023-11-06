@@ -4,9 +4,6 @@
 
 ;; (setq lsp-pylsp-server-command "~./local/bin/pyslp")
 
-(setq major-mode-remap-alist
-      '((python-mode . python-ts-mode)))
-
 (use-package python
   :mode ("\\.py\\'" . python-mode)
   ("\\.wsgi$" . python-mode)

@@ -1,28 +1,8 @@
 ;;;; All git-related stuff, except for forge
 ;;;
-;;; All keys are C-c g <one-more-key>:
-;;;
-;;; ----------------- ---------------------------------------------------------
-;;; Key               Definition
-;;; ----------------- ---------------------------------------------------------
-;;; C-c g s           Magit status
-;;; C-c g l           Magit log
-;;; C-c g f           Magit file log
-;;; C-c g b           Toggle Magit blame mode
-;;; C-c g c           Magit clone
-;;;
-;;; C-c g down        Goto next hunk in buffer
-;;; C-c g n           Goto next hunk in buffer
-;;; C-c g up          Goto previous hunk in buffer
-;;; C-c g p           Goto previous hunk in buffer
-;;; C-c g d           Diff current hunk
-;;; C-c g r           Revert current hunk (asks for confirmation)
-;;;
-;;; C-c ^ d           Show SMerge Dispatch
 
 ;;; Magit
 (define-prefix-command 'exordium-git-map nil)
-(global-set-key (kbd "C-c g") 'exordium-git-map)
 
 (use-package git-commit
   :ensure t

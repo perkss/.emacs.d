@@ -245,7 +245,7 @@ Default is `:auto-complete'.  See also `exordium-rtags-auto-complete'."
 
 ;;; Themes -- see themes directory
 
-(defcustom exordium-theme 'material
+(defcustom exordium-theme 'zenburn
   "Theme to load on startup. Use nil to not load any theme,
 otherwise use one of the following:
 - tomorrow-day, tomorrow-night, tomorrow-night-bright,
@@ -629,6 +629,12 @@ Default is to choose the first that is found via `executable-find'."
 
 (defcustom exordium-lsp-mode-enable t
   "Enable lsp-mode."
+  :group 'exordium
+  :type 'boolean)
+
+(defcustom exordium-treesit-modes-enable t
+  "Enable treesiter.
+For emacs 29 and above enable new -ts-modes and attach forwarding hook."
   :group 'exordium
   :type 'boolean)
 

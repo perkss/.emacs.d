@@ -21,6 +21,12 @@ bug (page break lines wrap around)."
   :diminish
   :hook
   (emacs-lisp-mode . exordium-page-break-lines-hook))
+
+(use-package elisp-slime-nav
+  :ensure t
+  :config
+  (dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
+    (add-hook hook #'elisp-slime-nav-mode)))
 
 ;;; Animation when evaluating a defun or a region:
 (require 'facemenu)  ;; no longer preloaded in emacs 28, but used by `highlight' without require

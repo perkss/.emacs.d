@@ -280,6 +280,8 @@ the .elc exists. Also discard .elc without corresponding .el"
   :if exordium-helm-projectile)
 (use-package init-helm :ensure nil)            ; setup helm
 
+(use-package init-ivy :ensure nil)
+
 (use-package init-help :ensure nil
   :if exordium-help-extensions)
 
@@ -341,6 +343,12 @@ the .elc exists. Also discard .elc without corresponding .el"
 
 ;;; Python
 (use-package init-python :ensure nil)
+
+
+(use-package init-flycheck :ensure nil)
+
+;;; Treesitter
+(use-package init-treesitter :ensure nil)
 
 ;;; Ruby
 (use-package init-ruby :ensure nil)
@@ -407,43 +415,30 @@ the .elc exists. Also discard .elc without corresponding .el"
 ;; disable startup screen
 (setq inhibit-startup-screen t)
 
-;; nice scrolling
-(setq scroll-margin 0
-      scroll-conservatively 100000
-      scroll-preserve-screen-position 1)
-
-
-;; enable y/n answers
-;;(fset 'yes-or-no-p 'y-or-n-p)
-
-
 ;; more useful frame title, that show either a file or a
 ;; buffer name (if the buffer isn't visiting a file)
 (setq frame-title-format
       '((:eval (if (buffer-file-name)
                    (abbreviate-file-name (buffer-file-name))
                  "%b"))))
-;; highlight the current line
-(global-hl-line-mode +1)
 
 (use-package hl-todo
   :ensure t
   :config
   (global-hl-todo-mode))
 
-    ;; Rainbow parenthesis
+;; Rainbow parenthesis
 (use-package rainbow-delimiters
      :ensure t
      :config
      (rainbow-delimiters-mode +1)
      (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
-    ;; Rainbow match highlights
+;; Rainbow match highlights
 (use-package rainbow-mode
   :ensure t
   :config
   (add-hook 'prog-mode-hook #'rainbow-mode))
-
 
 (use-package json-mode
   :ensure t)
@@ -455,12 +450,6 @@ the .elc exists. Also discard .elc without corresponding .el"
   :ensure t)
 
 (use-package rg
-  :ensure t)
-
-(use-package kibit-helper
-  :ensure t)
-
-(use-package cider-eval-sexp-fu
   :ensure t)
 
 (use-package css-mode
@@ -482,7 +471,6 @@ the .elc exists. Also discard .elc without corresponding .el"
 (use-package diffview
   :commands (diffview-current diffview-region diffview-message))
 
-
 (use-package imenu-anywhere
   :ensure t
   :config
@@ -496,19 +484,6 @@ the .elc exists. Also discard .elc without corresponding .el"
   (setq feature-step-search-path "features/**/*steps.clj")
   (setq feature-step-search-gems-path "gems/ruby/*/gems/*/**/*steps.rb"))
 
-(use-package ielm
-  :ensure t
-  :config
-  (add-hook 'ielm-mode-hook #'eldoc-mode)
-  (add-hook 'ielm-mode-hook #'rainbow-delimiters-mode))
-
-(use-package avy
-  :ensure t
-  :bind (("s-." . avy-goto-word-or-subword-1)
-         ("s-," . avy-goto-char))
-  :config
-  (setq avy-background t))
-
 
 (use-package savehist
   :config
@@ -521,20 +496,11 @@ the .elc exists. Also discard .elc without corresponding .el"
         savehist-file (expand-file-name "savehist" savefile-dir))
   (savehist-mode +1))
 
-(use-package anzu
-  :ensure t
-  :bind (("M-%" . anzu-query-replace)
-         ("C-M-%" . anzu-query-replace-regexp))
-  :config
-  (global-anzu-mode))
-
 
 (use-package undo-tree
   :ensure t
   :config
   (global-undo-tree-mode 1)
-
-
   (global-set-key (kbd "C-z") 'undo)
   (defalias 'redo 'undo-tree-redo)
   (global-set-key (kbd "C-S-z") 'redo)
@@ -575,53 +541,8 @@ the .elc exists. Also discard .elc without corresponding .el"
   ("\\.json\\'" . web-mode)
   ("\\.tpl\\'" . web-mode))
 
-(use-package swiper-helm
-  :ensure t)
-
-;; temporarily highlight changes from yanking, etc
-(use-package volatile-highlights
-  :ensure t
-  :config
-  (volatile-highlights-mode +1))
-
 (use-package flycheck-haskell
   :ensure t)
-
-
-(use-package ivy
-  :ensure t
-  :config
-  (ivy-mode 1)
-  (setq ivy-use-virtual-buffers t)
-  (setq enable-recursive-minibuffers t)
-  (global-set-key (kbd "C-c C-r") 'ivy-resume)
-  (global-set-key (kbd "<f6>") 'ivy-resume))
-
-(use-package counsel
-  :ensure t
-  :config
-;;  (global-set-key (kbd "M-x") 'counsel-M-x)
-  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-  (global-set-key (kbd "<f1> f") 'counsel-describe-function)
-  (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-  (global-set-key (kbd "<f1> l") 'counsel-find-library)
-  (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-  (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-  (global-set-key (kbd "C-c g") 'counsel-git)
-  (global-set-key (kbd "C-c j") 'counsel-git-grep)
-  (global-set-key (kbd "C-c k") 'counsel-ag)
-  (global-set-key (kbd "C-x l") 'counsel-locate)
-  (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history))
-
-(use-package counsel-projectile
-  :ensure t
-  :config
-  (counsel-projectile-mode)
-  (define-key projectile-mode-map [remap projectile-ag]
-    #'counsel-projectile-rg))
-
-(use-package counsel-tramp
-  :commands counsel-tramp)
 
 (use-package hardcore-mode
   :ensure t
@@ -636,18 +557,6 @@ the .elc exists. Also discard .elc without corresponding .el"
 (add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
 ;; Allow hash to be entered
 (global-set-key (kbd "M-3") '(lambda () (interactive) (insert "#")))
-
-
-;; don't use tabs for indent
-;;(setq-default indent-tabs-mode nil)
-;;(setq-default tab-width 4)
-;;(setq indent-line-function 'insert-tab)
-(use-package elisp-slime-nav
-  :ensure t
-  :config
-  (dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
-    (add-hook hook #'elisp-slime-nav-mode)))
-
 
 (use-package paren
   :config
@@ -682,20 +591,20 @@ the .elc exists. Also discard .elc without corresponding .el"
   (setq whitespace-style '(face tabs empty trailing lines-tail)))
 
 ;; temporarily highlight changes from yanking, etc
-(use-package volatile-highlights
-  :ensure t
-  :config
-  (volatile-highlights-mode +1))
+;; (use-package volatile-highlights
+;;   :ensure t
+;;   :config
+;;   (volatile-highlights-mode +1))
 
-(use-package highlight-symbol
-  :ensure t
-  :config
-  (highlight-symbol-mode t)
-  (add-hook 'prog-mode-hook 'highlight-symbol-mode)
-  (global-set-key [(control f3)] 'highlight-symbol)
-  (global-set-key [f3] 'highlight-symbol-next)
-  (global-set-key [(shift f3)] 'highlight-symbol-prev)
-  (global-set-key [(meta f3)] 'highlight-symbol-query-replace))
+;; (use-package highlight-symbol
+;;   :ensure t
+;;   :config
+;;   (highlight-symbol-mode t)
+;;   (add-hook 'prog-mode-hook 'highlight-symbol-mode)
+;;   (global-set-key [(control f3)] 'highlight-symbol)
+;;   (global-set-key [f3] 'highlight-symbol-next)
+;;   (global-set-key [(shift f3)] 'highlight-symbol-prev)
+;;   (global-set-key [(meta f3)] 'highlight-symbol-query-replace))
 
 
 ;; Yaml mode support
@@ -737,9 +646,6 @@ the .elc exists. Also discard .elc without corresponding .el"
   :ensure t)
 
 (use-package sql-indent
-  :ensure t)
-
-(use-package github-browse-file
   :ensure t)
 
 (update-progress-bar)
@@ -790,7 +696,6 @@ the .elc exists. Also discard .elc without corresponding .el"
 (use-package cmake-project
     :ensure t)
 
-
 (defun maybe-cmake-project-mode ()
   (if (or (file-exists-p "CMakeLists.txt")
           (file-exists-p
@@ -806,10 +711,6 @@ the .elc exists. Also discard .elc without corresponding .el"
   :ensure t
   :config
   (global-disable-mouse-mode))
-
-
-(use-package tree-sitter-langs
-  :ensure t)
 
 (global-set-key
  (kbd "M-.")
