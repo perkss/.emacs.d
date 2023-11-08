@@ -1,28 +1,8 @@
 ;;;; All git-related stuff, except for forge
 ;;;
-;;; All keys are C-c g <one-more-key>:
-;;;
-;;; ----------------- ---------------------------------------------------------
-;;; Key               Definition
-;;; ----------------- ---------------------------------------------------------
-;;; C-c g s           Magit status
-;;; C-c g l           Magit log
-;;; C-c g f           Magit file log
-;;; C-c g b           Toggle Magit blame mode
-;;; C-c g c           Magit clone
-;;;
-;;; C-c g down        Goto next hunk in buffer
-;;; C-c g n           Goto next hunk in buffer
-;;; C-c g up          Goto previous hunk in buffer
-;;; C-c g p           Goto previous hunk in buffer
-;;; C-c g d           Diff current hunk
-;;; C-c g r           Revert current hunk (asks for confirmation)
-;;;
-;;; C-c ^ d           Show SMerge Dispatch
 
 ;;; Magit
 (define-prefix-command 'exordium-git-map nil)
-(global-set-key (kbd "C-c g") 'exordium-git-map)
 
 (use-package git-commit
   :ensure t
@@ -210,46 +190,46 @@ The function is meant to be used as an advice with conjunction with `exordium-ma
 ;;; Git gutter fringe: display added/removed/changed lines in the left fringe.
 
 ;;;###autoload
-(define-globalized-minor-mode exordium-global-git-gutter-mode
-  git-gutter-mode
-  (lambda () (when (let ((file-name (buffer-file-name)))
-                     (if exordium-git-gutter-for-remote-files
-                         file-name ;; enable for all files
-                       (and file-name ;; enable only for local files
-                            (not (file-remote-p file-name)))))
-               (git-gutter--turn-on))))
+;; (define-globalized-minor-mode exordium-global-git-gutter-mode
+;;   git-gutter-mode
+;;   (lambda () (when (let ((file-name (buffer-file-name)))
+;;                      (if exordium-git-gutter-for-remote-files
+;;                          file-name ;; enable for all files
+;;                        (and file-name ;; enable only for local files
+;;                             (not (file-remote-p file-name)))))
+;;                (git-gutter--turn-on))))
 
-(use-package git-gutter
-  :if exordium-git-gutter-non-fringe
-  :init
-  (setq exordium-git-gutter nil)
-  :config
-  (exordium-global-git-gutter-mode t)
-  :diminish)
+;; (use-package git-gutter
+;;   :if exordium-git-gutter-non-fringe
+;;   :init
+;;   (setq exordium-git-gutter nil)
+;;   :config
+;;   (exordium-global-git-gutter-mode t)
+;;   :diminish)
 
-(use-package git-gutter-fringe
-  :if (and exordium-git-gutter (not exordium-git-gutter-non-fringe))
-  :config (exordium-global-git-gutter-mode t)
-  :diminish git-gutter-mode
-  :bind (:map exordium-git-map
-              ("<down>" . 'git-gutter:next-hunk)
-              ("n" . 'git-gutter:next-hunk)
-              ("<up>" . 'git-gutter:previous-hunk)
-              ("p" . 'git-gutter:previous-hunk)
-              ("d" . 'git-gutter:popup-hunk)
-              ("r" . 'git-gutter:revert-hunk))
-  :init
-  (add-hook 'git-gutter:update-hooks 'magit-revert-buffer-hook)
-  :config
-  ;; Style
-  (when (eq exordium-git-gutter-fringe-style :flat)
-    (setq-default fringes-outside-margins t)
-    (define-fringe-bitmap 'git-gutter-fr:added [224]
-      nil nil '(center repeated))
-    (define-fringe-bitmap 'git-gutter-fr:modified [224]
-      nil nil '(center repeated))
-    (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240]
-      nil nil 'bottom)))
+;; (use-package git-gutter-fringe
+;;   :if (and exordium-git-gutter (not exordium-git-gutter-non-fringe))
+;;   :config (exordium-global-git-gutter-mode t)
+;;   :diminish git-gutter-mode
+;;   :bind (:map exordium-git-map
+;;               ("<down>" . 'git-gutter:next-hunk)
+;;               ("n" . 'git-gutter:next-hunk)
+;;               ("<up>" . 'git-gutter:previous-hunk)
+;;               ("p" . 'git-gutter:previous-hunk)
+;;               ("d" . 'git-gutter:popup-hunk)
+;;               ("r" . 'git-gutter:revert-hunk))
+;;   :init
+;;   (add-hook 'git-gutter:update-hooks 'magit-revert-buffer-hook)
+;;   :config
+;;   ;; Style
+;;   (when (eq exordium-git-gutter-fringe-style :flat)
+;;     (setq-default fringes-outside-margins t)
+;;     (define-fringe-bitmap 'git-gutter-fr:added [224]
+;;       nil nil '(center repeated))
+;;     (define-fringe-bitmap 'git-gutter-fr:modified [224]
+;;       nil nil '(center repeated))
+;;     (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240]
+;;       nil nil 'bottom)))
 
 
 

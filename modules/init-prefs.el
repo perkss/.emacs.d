@@ -47,12 +47,12 @@ available font names by evaluating (font-family-list)."
   :group 'exordium
   :type  'boolean)
 
-(defcustom exordium-font-lock t
+(defcustom exordium-font-lock nil
   "Whether font-lock is turned on globally or not."
   :group 'exordium
   :type  'boolean)
 
-(defcustom exordium-scroll-bar t
+(defcustom exordium-scroll-bar nil
   "Whether a scroll bar is displayed globally or not"
   :group 'exordium
   :type   'boolean)
@@ -64,7 +64,7 @@ available font names by evaluating (font-family-list)."
   :group 'exordium
   :type  'boolean)
 
-(defcustom exordium-keyboard-ctrl-z-undo t
+(defcustom exordium-keyboard-ctrl-z-undo nil
   "Whether Ctrl-z is rebound to Undo, like most other applications."
   :group 'exordium
   :type  'boolean)
@@ -629,6 +629,12 @@ Default is to choose the first that is found via `executable-find'."
 
 (defcustom exordium-lsp-mode-enable t
   "Enable lsp-mode."
+  :group 'exordium
+  :type 'boolean)
+
+(defcustom exordium-treesit-modes-enable t
+  "Enable treesiter.
+For emacs 29 and above enable new -ts-modes and attach forwarding hook."
   :group 'exordium
   :type 'boolean)
 
