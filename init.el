@@ -258,7 +258,7 @@ the .elc exists. Also discard .elc without corresponding .el"
 
 ;;; Look and feel
 (use-package init-look-and-feel :ensure nil)   ; fonts, UI, keybindings, saving files etc.
-(use-package init-font-lock :ensure nil)       ; enables/disables font-lock globally.
+;;(use-package init-font-lock :ensure nil)       ; enables/disables font-lock globally.
 (use-package init-linum :ensure nil)           ; line numbers
 (use-package init-smooth-scroll
   :ensure nil
@@ -463,6 +463,7 @@ the .elc exists. Also discard .elc without corresponding .el"
   :config
   (global-diff-hl-mode +1)
   (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
+  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
 
 (use-package diff-mode

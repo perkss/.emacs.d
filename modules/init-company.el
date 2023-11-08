@@ -12,8 +12,9 @@
   (setq rtags-completions-enabled nil)
   ;; Turn on company mode everywhere
   (global-company-mode)
-  (add-to-list 'company-backends '(company-capf company-dabbrev-code company-clang :with company-yasnippet))
+  (add-to-list 'company-backends '(company-capf company-dabbrev-code :with company-yasnippet :separate))
   ;; (add-to-list 'company-backends '(
+  ;;   company-clang
   ;;                                  company-keywords
   ;;                                  company-cmake
   ;;                                  company-jedi

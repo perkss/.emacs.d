@@ -47,12 +47,12 @@ available font names by evaluating (font-family-list)."
   :group 'exordium
   :type  'boolean)
 
-(defcustom exordium-font-lock t
+(defcustom exordium-font-lock nil
   "Whether font-lock is turned on globally or not."
   :group 'exordium
   :type  'boolean)
 
-(defcustom exordium-scroll-bar t
+(defcustom exordium-scroll-bar nil
   "Whether a scroll bar is displayed globally or not"
   :group 'exordium
   :type   'boolean)
@@ -64,7 +64,7 @@ available font names by evaluating (font-family-list)."
   :group 'exordium
   :type  'boolean)
 
-(defcustom exordium-keyboard-ctrl-z-undo t
+(defcustom exordium-keyboard-ctrl-z-undo nil
   "Whether Ctrl-z is rebound to Undo, like most other applications."
   :group 'exordium
   :type  'boolean)
@@ -245,7 +245,7 @@ Default is `:auto-complete'.  See also `exordium-rtags-auto-complete'."
 
 ;;; Themes -- see themes directory
 
-(defcustom exordium-theme 'zenburn
+(defcustom exordium-theme 'material
   "Theme to load on startup. Use nil to not load any theme,
 otherwise use one of the following:
 - tomorrow-day, tomorrow-night, tomorrow-night-bright,
