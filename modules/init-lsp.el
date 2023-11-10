@@ -5,6 +5,11 @@
 ;;; Code:
 (require 'init-prefs)
 
+;;; LSP Performance
+(setq gc-cons-threshold 99999999)
+  ;; process buffer for the LSP server needs to be larger
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
+
 (use-package flycheck
   :commands flycheck-mode
   :init (global-flycheck-mode)
@@ -24,7 +29,9 @@
 (use-package lsp-mode
   :if exordium-lsp-mode-enable
   :hook ((c-mode-common  . lsp)
+         (c-ts-mode-common  . lsp)
          (typescript-mode . lsp)
+         (typescript-ts-mode . lsp)
          (c++-mode  . lsp)
          (c++-ts-mode  . lsp)
          (c-mode  . lsp)
@@ -32,7 +39,9 @@
          (c-or-c++-mode  . lsp)
          (c-or-c++-ts-mode  . lsp)
          (java-mode . lsp)
+         (java-ts-mode . lsp)
          (js-mode . lsp)
+         (js-ts-mode . lsp)
          (js-jsx-mode . lsp)
          (python-mode . lsp)
          (python-ts-mode . lsp)
@@ -53,13 +62,10 @@
   ;; company mode configuration for lsp-mode
   (setq lsp-completion-provider :capf)
 
-  ;; process buffer for the LSP server needs to be larger
-  (setq read-process-output-max (* 1024 1024)) ;; 1mb
-
   ;; semantic hilite via lsp server
   (setq lsp-enable-semantic-highlighting t)
 
-  (setq lsp-idle-delay 0.1) ;; clangd is fast
+  (setq lsp-idle-delay 0.2) ;; clangd is fast increase this if
   (global-set-key (kbd "<M-return>") 'lsp-execute-code-action)
   (setq treemacs-space-between-root-nodes nil)
   (setq lsp-completion-enable t lsp-enable-on-type-formatting t)
@@ -101,21 +107,29 @@
         lsp-lens-enable t)
   :commands lsp-ui-mode)
 
-;; (use-package helm-xref
-;;   :ensure t
-;;   :after helm
-;;   :if exordium-helm-everywhere
-;;   :commands helm-xref
-;;   :config
-;;   (setq xref-show-xrefs-function 'helm-xref-show-xrefs))
+(with-eval-after-load 'lsp-mode
+  (dolist (dir '("[/\\\\]\\.ccls-cache\\'"
+                 "[/\\\\]\\.mypy_cache\\'"
+                 "[/\\\\]\\.pytest_cache\\'"
+                 "[/\\\\]\\.cache\\'"
+                 "[/\\\\]\\.clwb\\'"
+                 "[/\\\\]__pycache__\\'"
+                 "[/\\\\]cmake-build\\'"
+                 "[/\\\\]bazel-bin\\'"
+                 "[/\\\\]bazel-code\\'"
+                 "[/\\\\]bazel-genfiles\\'"
+                 "[/\\\\]bazel-out\\'"
+                 "[/\\\\]bazel-testlogs\\'"
+                 "[/\\\\]third_party\\'"
+                 "[/\\\\]third-party\\'"
+                 "[/\\\\]buildtools\\'"
+                 "[/\\\\]out\\'"
+                 "[/\\\\]build\\'"
+                 ))
+    (push dir lsp-file-watch-ignored-directories))
 
-(use-package helm-lsp
-  :after (lsp-mode helm)
-  :if exordium-helm-everywhere
-  :commands
-  (helm-lsp-workspace-symbol
-   helm-lsp-global-workspace-symbol
-   helm-lsp-code-actions))
+  (add-to-list 'lsp-file-watch-ignored-files "[/\\\\]\\.my-files\\'"))
+
 
 (use-package lsp-treemacs
   :after lsp-mode

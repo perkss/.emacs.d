@@ -32,24 +32,13 @@
   (setq company-dabbrev-ignore-case t)
   (setq company-dabbrev-downcase t)
   (setq company-dabbrev-minimum-length 4)
-  (setq company-files-exclusions '(".git/" "build" ".clangd" ".DS_Store"))
+  (setq company-files-exclusions '(".git/" "cmake-build" "build" ".clangd" ".DS_Store"))
   (setq company-transformers '(delete-consecutive-dups company-sort-by-occurrence))
   :bind
   (:map company-active-map
-        ;; Use ESC to escape company-complete (in addition to C-g)
-        ("<escape>" . #'company-abort)
         ;; Key to force trigger company-complete
         :map global-map
         ("C-." . #'company-complete)
         ("C-c y" . #'company-yasnippet)))
-
-(use-package company-jedi
-  :ensure t)
-
-(use-package company-statistics
-  :ensure t
-  :after company
-  :init
-  (company-statistics-mode))
 
 (provide 'init-company)

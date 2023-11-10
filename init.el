@@ -11,8 +11,6 @@
 ;; Set the cmd as meta key
 (setq ns-command-modifier (quote meta))
 
-(setq gc-cons-threshold 99999999)
-
 (let ((min-version "27.1"))
   (when (version< emacs-version min-version)
     (error "This config requires at least Emacs %s, but you're running %s"
