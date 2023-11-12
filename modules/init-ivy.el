@@ -28,11 +28,13 @@
   (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history))
 
 (use-package counsel-projectile
+  :after projectile
   :ensure t
   :config
   (counsel-projectile-mode)
-  (define-key projectile-mode-map [remap projectile-ag]
-    #'counsel-projectile-rg))
+
+;;  (define-key projectile-mode-map [remap projectile-ag]              #'counsel-projectile-rg)
+  )
 
 (use-package counsel-tramp
   :commands counsel-tramp)

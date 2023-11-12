@@ -59,11 +59,6 @@ available font names by evaluating (font-family-list)."
 
 ;;; Keyboard
 
-(defcustom exordium-keyboard-escape nil
-  "Whether the Escape key does keyboard quit e.g. the equivalent of Ctrl-G."
-  :group 'exordium
-  :type  'boolean)
-
 (defcustom exordium-keyboard-ctrl-z-undo nil
   "Whether Ctrl-z is rebound to Undo, like most other applications."
   :group 'exordium

@@ -19,26 +19,6 @@
 
 (use-package helm-rg)
 
-(use-package projectile
-  :bind
-  (:map projectile-command-map
-        ("." . helm-projectile-find-file-dwim))
-  :bind-keymap
-  ("C-c p" . projectile-command-map)
-  :config
-  (projectile-mode)
-  (progn
-    (setq projectile-globally-ignored-files
-          (append '(
-                "*.pyc"
-                "*.class"
-                "*~"
-                )
-              projectile-globally-ignored-files))
-    (helm-projectile-on)
-    (setq projectile-enable-caching t)
-    ))
-
 (use-package helm-projectile
   :init
   (defun exordium-helm-projectile--exit-helm-and-do-ag ()
@@ -84,37 +64,5 @@
                              helm-source-projectile-projects)
   (when exordium-helm-everywhere
     (helm-projectile-on)))
-
-(use-package treemacs
-  :ensure t
-  :commands (treemacs-follow-mode
-             treemacs-filewatch-mode
-             treemacs-git-mode)
-  :config
-  (treemacs-follow-mode t)
-  (treemacs-filewatch-mode t))
-
-    (use-package treemacs-magit
-    :after magit
-    :autoload treemacs-magit--schedule-update
-    :hook ((magit-post-commit
-            git-commit-post-finish
-            magit-post-stage
-            magit-post-unstage)
-           . treemacs-magit--schedule-update))
-
-(use-package treemacs-projectile
-  :bind
-  (:map global-map
-        ("C-c e" . #'treemacs)
-        ("C-c E" . #'treemacs-projectile)))
-
-;; Prevent Projectile from indexing the build directory.
-(when exordium-rtags-cmake-build-dir
-  (let ((top-level (car (split-string exordium-rtags-cmake-build-dir "/"))))
-    ;; By default, top-level = "cmake.bld" (excluding the "<arch>")
-    (when top-level
-      (setq projectile-globally-ignored-directories
-            (cons top-level projectile-globally-ignored-directories)))))
 
 (provide 'init-helm-projectile)

@@ -145,10 +145,6 @@
 
 ;;; Keyboard preferences
 
-;; Use ESC as Control-G
-(when exordium-keyboard-escape
-  (global-set-key (kbd "<escape>") 'keyboard-quit))
-
 ;;; Use "y or n" answers instead of full words "yes or no"
 (when exordium-enable-y-or-n
   (fset 'yes-or-no-p 'y-or-n-p))

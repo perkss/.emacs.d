@@ -274,10 +274,12 @@ the .elc exists. Also discard .elc without corresponding .el"
 (use-package init-company :ensure nil
   :if (eq exordium-complete-mode :company))
 
-(use-package init-helm-projectile :ensure nil
-  :if exordium-helm-projectile)
-(use-package init-helm :ensure nil)            ; setup helm
+;; (use-package init-helm-projectile :ensure nil
+;;   :if exordium-helm-projectile)
+;;(use-package init-helm :ensure nil)            ; setup helm
 
+(use-package init-treemacs :ensure nil)
+(use-package init-projectile :ensure nil)
 (use-package init-ivy :ensure nil)
 
 (use-package init-help :ensure nil
@@ -327,10 +329,7 @@ the .elc exists. Also discard .elc without corresponding .el"
 
 ;;; RTags
 (use-package init-rtags :ensure nil)
-(when (and (eq exordium-complete-mode :auto-complete)
-       exordium-rtags-auto-complete)
-  (rtags-auto-complete))
-(use-package init-rtags-helm :ensure nil)
+;;(use-package init-rtags-helm :ensure nil)
 (use-package init-rtags-cmake :ensure nil)
 (use-package init-rtags-cdb :ensure nil)
 
