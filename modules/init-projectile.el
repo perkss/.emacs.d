@@ -23,18 +23,7 @@
        (add-to-list 'projectile-globally-ignored-directories "*.class")
        (add-to-list 'projectile-globally-ignored-directories "*.~")
        (add-to-list 'projectile-globally-ignored-directories "*build")
+       (add-to-list 'projectile-globally-ignored-directories "*.cache")
        (add-to-list 'projectile-globally-ignored-directories "*cmake-build")))
-
-(use-package treemacs-projectile
-  :after (treemacs projectile)
-  :ensure t
-  :bind
-  (:map global-map
-        ("C-c e" . #'treemacs)
-        ("C-c E" . #'treemacs-projectile)))
-
-(use-package treemacs-icons-dired
-  :hook (dired-mode . treemacs-icons-dired-enable-once)
-  :ensure t)
 
 (provide 'init-projectile)

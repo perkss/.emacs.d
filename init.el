@@ -556,14 +556,15 @@ the .elc exists. Also discard .elc without corresponding .el"
 ;; Allow hash to be entered
 (global-set-key (kbd "M-3") '(lambda () (interactive) (insert "#")))
 
+;; Display highlighting on whatever paren matches the one before or after the point
 (use-package paren
   :config
   (show-paren-mode +1))
 
-(use-package easy-kill
-  :ensure t
-  :config
-  (global-set-key [remap kill-ring-save] 'easy-kill))
+;;(use-package easy-kill
+ ;; :ensure t
+ ;; :config
+ ;; (global-set-key [remap kill-ring-save] 'easy-kill))
 
 ;; TODO check into this behaviour
 (use-package exec-path-from-shell
