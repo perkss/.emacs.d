@@ -27,14 +27,16 @@
   (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
   (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history))
 
+(use-package swiper
+  :ensure t
+  :config
+  (global-set-key "\C-s" 'swiper))
+
 (use-package counsel-projectile
   :after projectile
   :ensure t
   :config
-  (counsel-projectile-mode)
-
-;;  (define-key projectile-mode-map [remap projectile-ag]              #'counsel-projectile-rg)
-  )
+  (counsel-projectile-mode))
 
 (use-package counsel-tramp
   :commands counsel-tramp)
