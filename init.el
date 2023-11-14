@@ -269,7 +269,7 @@ the .elc exists. Also discard .elc without corresponding .el"
 ;;; Usability
 (use-package init-window-manager :ensure nil)  ; navigate between windows
 (use-package init-util :ensure nil)            ; utilities like match paren, bookmarks...
-(use-package init-ido :ensure nil)             ; supercharged completion engine
+;;(use-package init-ido :ensure nil)             ; supercharged completion engine
 (use-package init-highlight :ensure nil)       ; highlighting current line, symbol under point
 (use-package init-company :ensure nil
   :if (eq exordium-complete-mode :company))
@@ -302,6 +302,7 @@ the .elc exists. Also discard .elc without corresponding .el"
 (use-package init-markdown :ensure nil)
 (use-package init-org :ensure nil)
 (use-package init-xml :ensure nil)
+(use-package init-json :ensure nil)
 
 ;;; OS-specific things
 (use-package init-osx :ensure nil :if exordium-osx)
@@ -375,12 +376,8 @@ the .elc exists. Also discard .elc without corresponding .el"
 
 (update-progress-bar)
 
-;;; Greetings
-(setq initial-scratch-message
-      (let ((current-user (split-string (user-full-name) " ")))
-        (format ";; Happy hacking %s!
-
-" (if current-user (car current-user) exordium-current-user))))
+;;; Set message empty
+(setq initial-scratch-message "")
 
 ;;; End of file
 
@@ -427,15 +424,6 @@ the .elc exists. Also discard .elc without corresponding .el"
      :config
      (rainbow-delimiters-mode +1)
      (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
-
-;; Color in buffer
-;; (use-package rainbow-mode
-;;   :ensure t
-;;   :config
-;;   (add-hook 'prog-mode-hook #'rainbow-mode))
-
-(use-package json-mode
-  :ensure t)
 
 (use-package ag
   :ensure t)

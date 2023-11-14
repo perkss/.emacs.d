@@ -4,15 +4,6 @@
 ;;; Magit
 (define-prefix-command 'exordium-git-map nil)
 
-(use-package git-commit
-  :ensure t
-  :config
-  (add-hook 'git-commit-mode-hook 'flyspell-mode))
-
-
-(use-package magit-annex
-  :ensure t)
-
 (use-package magit
   :init
   (defun exordium-magit-log-buffer ()
@@ -70,11 +61,6 @@ The function is meant to be used as an advice with conjunction with `exordium-ma
       (setq-local exordium--magit-fullscreen-configuration
                   exordium--magit-fullscreen-configuration-tmp)))
 
-  (defun exordium-magit--dont-insert-symbol-for-search ()
-    "Don't insert a symbol at point when starting ag or rg."
-    (setq-local helm-ag-insert-at-point nil)
-    (setq-local helm-rg-thing-at-point nil))
-
   ;;; Turn off the horrible warning about magit auto-revert of saved buffers
   (setq magit-last-seen-setup-instructions "1.4.0")
 
@@ -87,9 +73,6 @@ The function is meant to be used as an advice with conjunction with `exordium-ma
         ("c" . (function magit-clone))
    :map magit-status-mode-map
         ("q" . 'exordium-magit-quit-session))
-
-  :hook
-  (magit-status-mode . exordium-magit--dont-insert-symbol-for-search)
 
   :config
 ;;; Make `magit-status',`exordium-magit-log' (a wrapper around `magit-log' and
@@ -241,14 +224,6 @@ The function is meant to be used as an advice with conjunction with `exordium-ma
 
 
 ;;; Git Grep
-
-(define-key exordium-git-map (kbd "g")
-  (if exordium-helm-everywhere
-      (lambda()
-        (interactive)
-        (setq current-prefix-arg '(4))
-        (call-interactively 'helm-grep-do-git-grep))
-    (function vc-git-grep)))
 
 
 ;;; Make backtick an electric pair

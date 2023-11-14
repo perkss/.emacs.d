@@ -68,7 +68,7 @@
           (add-to-list 'tree-sitter-major-mode-language-alist
                        (cons 'forge-post-mode 'markdown))
           (global-tree-sitter-mode))))
-    ) ;; (unless (getenv "ci_tests")
-  ) ;; exordium-treesit-modes-enable
+    )
+  )
 
 (provide 'init-treesitter)

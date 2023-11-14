@@ -19,14 +19,6 @@
   (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
   (add-to-list 'auto-mode-alist '("\\.hh\\'" . c++-mode)))
 
-
-;;; IEdit: rename the symbol under point
-(use-package iedit
-  :init
-  ;;; Fix A bug (normal key is "C-;")
-  :bind (:map global-map
-              ("C-c ;" . #'iedit-mode)))
-
 ;;; Don't show the abbrev minor mode in the mode line
 (diminish 'abbrev-mode)
 
