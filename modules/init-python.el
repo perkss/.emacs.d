@@ -38,8 +38,7 @@
   :config (use-package company-anaconda
             :ensure t
             :init (add-hook 'python-mode-hook 'anaconda-mode)
-            (eval-after-load "company"
-              '(add-to-list 'company-backends '(company-anaconda :with company-capf)))))
+            ))
 
 
 

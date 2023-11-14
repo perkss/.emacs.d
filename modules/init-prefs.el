@@ -59,11 +59,6 @@ available font names by evaluating (font-family-list)."
 
 ;;; Keyboard
 
-(defcustom exordium-keyboard-escape nil
-  "Whether the Escape key does keyboard quit e.g. the equivalent of Ctrl-G."
-  :group 'exordium
-  :type  'boolean)
-
 (defcustom exordium-keyboard-ctrl-z-undo nil
   "Whether Ctrl-z is rebound to Undo, like most other applications."
   :group 'exordium
@@ -374,7 +369,7 @@ Disables flyspell if set to nil."
 
 
 ;;; See init-helm-projectile.el
-(defcustom exordium-helm-projectile t
+(defcustom exordium-helm-projectile nil
   "Whether Helm and Projectile are enabled or not."
   :group 'exordium
   :type  'boolean)
@@ -444,7 +439,7 @@ This is considered only when `exordium-complete-mode' is `:auto-complete'."
   :type  'symbol)
 
 ;;; See init-rtags-helm.el
-(defcustom exordium-rtags-helm-everywhere t
+(defcustom exordium-rtags-helm-everywhere nil
   "Whether RTags uses Helm to display list of results, rather
   than its own UI"
   :group 'exordium
@@ -489,12 +484,12 @@ This is considered only when `exordium-complete-mode' is `:auto-complete'."
 
 
 ;;; See init-helm.el
-(defcustom exordium-helm-everywhere t
+(defcustom exordium-helm-everywhere nil
   "Whether Helm should be used as a substitute for common key bindings."
   :group 'exordium
   :type  'boolean)
 
-(defcustom exordium-helm-fuzzy-match t
+(defcustom exordium-helm-fuzzy-match nil
   "Whether Helm should use fuzzy matching for searches."
   :group 'exordium
   :type  'boolean)

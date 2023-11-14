@@ -11,8 +11,6 @@
 ;; Set the cmd as meta key
 (setq ns-command-modifier (quote meta))
 
-(setq gc-cons-threshold 99999999)
-
 (let ((min-version "27.1"))
   (when (version< emacs-version min-version)
     (error "This config requires at least Emacs %s, but you're running %s"
@@ -271,16 +269,15 @@ the .elc exists. Also discard .elc without corresponding .el"
 ;;; Usability
 (use-package init-window-manager :ensure nil)  ; navigate between windows
 (use-package init-util :ensure nil)            ; utilities like match paren, bookmarks...
-(use-package init-ido :ensure nil)             ; supercharged completion engine
+;;(use-package init-ido :ensure nil)             ; supercharged completion engine
 (use-package init-highlight :ensure nil)       ; highlighting current line, symbol under point
 (use-package init-company :ensure nil
   :if (eq exordium-complete-mode :company))
 
-(use-package init-helm-projectile :ensure nil
-  :if exordium-helm-projectile)
-(use-package init-helm :ensure nil)            ; setup helm
-
+(use-package init-treemacs :ensure nil)
+(use-package init-projectile :ensure nil)
 (use-package init-ivy :ensure nil)
+(use-package init-imenu :ensure nil)
 
 (use-package init-help :ensure nil
   :if exordium-help-extensions)
@@ -291,7 +288,7 @@ the .elc exists. Also discard .elc without corresponding .el"
 (use-package init-git :ensure nil)             ; Magit and git gutter
 (use-package init-git-visit-diffs :ensure nil) ; visit diffs in successive narrowed buffers
 (use-package init-forge :ensure nil)           ; Forge
-(use-package init-flb-mode :ensure nil)        ; frame-local buffers
+;;(use-package init-flb-mode :ensure nil)        ; frame-local buffers
 
 (update-progress-bar)
 
@@ -305,6 +302,7 @@ the .elc exists. Also discard .elc without corresponding .el"
 (use-package init-markdown :ensure nil)
 (use-package init-org :ensure nil)
 (use-package init-xml :ensure nil)
+(use-package init-json :ensure nil)
 
 ;;; OS-specific things
 (use-package init-osx :ensure nil :if exordium-osx)
@@ -329,10 +327,6 @@ the .elc exists. Also discard .elc without corresponding .el"
 
 ;;; RTags
 (use-package init-rtags :ensure nil)
-(when (and (eq exordium-complete-mode :auto-complete)
-       exordium-rtags-auto-complete)
-  (rtags-auto-complete))
-(use-package init-rtags-helm :ensure nil)
 (use-package init-rtags-cmake :ensure nil)
 (use-package init-rtags-cdb :ensure nil)
 
@@ -382,12 +376,8 @@ the .elc exists. Also discard .elc without corresponding .el"
 
 (update-progress-bar)
 
-;;; Greetings
-(setq initial-scratch-message
-      (let ((current-user (split-string (user-full-name) " ")))
-        (format ";; Happy hacking %s!
-
-" (if current-user (car current-user) exordium-current-user))))
+;;; Set message empty
+(setq initial-scratch-message "")
 
 ;;; End of file
 
@@ -422,6 +412,7 @@ the .elc exists. Also discard .elc without corresponding .el"
                    (abbreviate-file-name (buffer-file-name))
                  "%b"))))
 
+;; Highlight todo words
 (use-package hl-todo
   :ensure t
   :config
@@ -433,15 +424,6 @@ the .elc exists. Also discard .elc without corresponding .el"
      :config
      (rainbow-delimiters-mode +1)
      (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
-
-;; Rainbow match highlights
-(use-package rainbow-mode
-  :ensure t
-  :config
-  (add-hook 'prog-mode-hook #'rainbow-mode))
-
-(use-package json-mode
-  :ensure t)
 
 (use-package ag
   :ensure t)
@@ -458,6 +440,7 @@ the .elc exists. Also discard .elc without corresponding .el"
 (use-package csv-mode
   :mode "\\.csv\\'")
 
+;; Highlight uncommitted changes
 (use-package diff-hl
   :ensure t
   :config
@@ -466,17 +449,12 @@ the .elc exists. Also discard .elc without corresponding .el"
   (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
 
+
 (use-package diff-mode
   :commands diff-mode)
 
-(use-package diffview
-  :commands (diffview-current diffview-region diffview-message))
-
-(use-package imenu-anywhere
-  :ensure t
-  :config
-  ;;(global-set-key (kbd "C-.") #'imenu-anywhere)
-  )
+;; (use-package diffview
+;;   :commands (diffview-current diffview-region diffview-message))
 
 ;;Cucumber
 (use-package feature-mode
@@ -513,13 +491,7 @@ the .elc exists. Also discard .elc without corresponding .el"
    undo-tree-visualizer-diff t
    undo-tree-visualizer-timestamps t))
 
-(use-package swiper
-  :ensure t
-  :config
-  (global-set-key "\C-s" 'swiper))
-
-
-    ;; web-mode: An autonomous emacs major-mode for editing web templates.
+;; web-mode: An autonomous emacs major-mode for editing web templates.
 ;; http://web-mode.org/
 (use-package web-mode
   :defer t
@@ -533,10 +505,10 @@ the .elc exists. Also discard .elc without corresponding .el"
    web-mode-markup-indent-offset 2)
   :mode
   ("\\.erb\\'" . web-mode)
-  ("\\.jsx\\'" . web-mode)
-  ("\\.js\\'" . web-mode)
-  ("\\.ts\\'" . web-mode)
-  ("\\.tsx\\'" . web-mode)
+;;  ("\\.jsx\\'" . web-mode)
+;;  ("\\.js\\'" . web-mode)
+;;  ("\\.ts\\'" . web-mode)
+;;  ("\\.tsx\\'" . web-mode)
   ("\\.html\\'" . web-mode)
   ("\\.vue\\'" . web-mode)
   ("\\.json\\'" . web-mode)
@@ -545,6 +517,7 @@ the .elc exists. Also discard .elc without corresponding .el"
 (use-package flycheck-haskell
   :ensure t)
 
+;; No arrow keys, backspace
 (use-package hardcore-mode
   :ensure t
   :init
@@ -559,14 +532,15 @@ the .elc exists. Also discard .elc without corresponding .el"
 ;; Allow hash to be entered
 (global-set-key (kbd "M-3") '(lambda () (interactive) (insert "#")))
 
+;; Display highlighting on whatever paren matches the one before or after the point
 (use-package paren
   :config
   (show-paren-mode +1))
 
-(use-package easy-kill
-  :ensure t
-  :config
-  (global-set-key [remap kill-ring-save] 'easy-kill))
+;;(use-package easy-kill
+ ;; :ensure t
+ ;; :config
+ ;; (global-set-key [remap kill-ring-save] 'easy-kill))
 
 ;; TODO check into this behaviour
 (use-package exec-path-from-shell
@@ -588,7 +562,6 @@ the .elc exists. Also discard .elc without corresponding .el"
     (add-hook hook #'whitespace-mode))
   (add-hook 'before-save-hook #'whitespace-cleanup)
   :config
-  (setq whitespace-line-column 80) ;; limit line length
   (setq whitespace-style '(face tabs empty trailing lines-tail)))
 
 ;; temporarily highlight changes from yanking, etc
@@ -667,8 +640,6 @@ the .elc exists. Also discard .elc without corresponding .el"
 
 ; revert buffers automatically when underlying files are changed externally
 (global-auto-revert-mode t)
-
-(setq cljr-inject-dependencies-at-jack-in nil)
 
 (use-package clang-format
   :ensure t)

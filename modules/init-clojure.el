@@ -1,4 +1,3 @@
-;;;; Let's give Light Table a run for its money
 ;;;;
 ;;;; Installed packages (and dependencies):
 ;;;; - cider

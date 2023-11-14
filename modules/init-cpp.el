@@ -16,15 +16,8 @@
 (use-package cc-mode
   :config
   ;;; Open a header file in C++ mode by default
-  (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode)))
-
-
-;;; IEdit: rename the symbol under point
-(use-package iedit
-  :init
-  ;;; Fix A bug (normal key is "C-;")
-  :bind (:map global-map
-              ("C-c ;" . #'iedit-mode)))
+  (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+  (add-to-list 'auto-mode-alist '("\\.hh\\'" . c++-mode)))
 
 ;;; Don't show the abbrev minor mode in the mode line
 (diminish 'abbrev-mode)
@@ -60,6 +53,7 @@
     ("u.t.cpp" . ("h" "cpp"))
     ("i.t.cpp" . ("h" "cpp"))
     ("h"       . ("cpp" "cc" "t.cpp" "g.cpp" "u.t.cpp" "i.t.cpp" "c"))
+    ("hh"      . ("cpp" "cc" "t.cpp" "g.cpp" "u.t.cpp" "i.t.cpp" "c"))
     ("cpp"     . ("h" "t.cpp" "g.cpp" "u.t.cpp" "i.t.cpp"))
     ("cc"      . ("h" "t.cc" "u.t.cc" "i.t.cc"))
     ("c"       . ("h")))
@@ -177,8 +171,6 @@
   :mode (("/CMakeLists\\.txt\\'" . cmake-mode)
          ("\\.cmake\\'" . cmake-mode))
   :hook (cmake-mode . lsp-deferred))
-
-;;(use-package dap-cpptools-setup)
 
 (use-package cmake-font-lock
   :ensure t
