@@ -13,7 +13,7 @@
   ;; Turn on company mode everywhere
   (global-company-mode)
   (add-to-list 'company-backends '(company-capf company-dabbrev-code :with company-yasnippet :separate))
-  (setq company-idle-delay (lambda () (if (company-in-string-or-comment) nil 0.2)))
+  (setq company-idle-delay (lambda () (if (company-in-string-or-comment) nil 0.05)))
   (setq company-minium-prefix-length 2)
   (setq company-echo-delay 0.2)
   (setq company-dabbrev-ignore-case t)

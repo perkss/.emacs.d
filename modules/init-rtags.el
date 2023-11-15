@@ -125,7 +125,21 @@
 (use-package cl-lib :ensure nil)
 (require 'init-lib)
 (require 'init-prefs)
-(use-package rtags)
+(use-package rtags
+  :bind (
+         ("C-c r ," . rtags-find-references-at-point)
+         ("C-c r ." . rtags-find-symbol-at-point)
+         ("C-c r >" . rtags-find-symbol)
+         ("C-c r <" . rtags-find-references)
+         ("C-c r v" . rtags-find-virtuals-at-point)
+         ("C-c r ;" . rtags-find-file)
+         ("C-c r R" . rtags-rename-symbol)
+         ("C-c r [" . rtags-location-stack-back)
+         ("C-c r ]" . rtags-location-stack-forward)
+         ("C-c r e" . rtags-reparse-file)
+         ("M-C-g" . imenu-list)
+
+         ))
 
 ;; (use-package lsp-mode
 ;;   :hook ((prog-mode . lsp-deferred))

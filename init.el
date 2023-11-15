@@ -416,12 +416,20 @@ the .elc exists. Also discard .elc without corresponding .el"
   :config
   (global-hl-todo-mode))
 
+;; adds count and current place in modeline for query replace
+(use-package anzu
+  :ensure t
+  :bind (("M-%" . anzu-query-replace)
+         ("C-M-%" . anzu-query-replace-regexp))
+  :config
+  (global-anzu-mode))
+
 ;; Rainbow parenthesis
 (use-package rainbow-delimiters
-     :ensure t
-     :config
-     (rainbow-delimiters-mode +1)
-     (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+  :ensure t
+  :config
+  (rainbow-delimiters-mode +1)
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
 (use-package ag
   :ensure t)
