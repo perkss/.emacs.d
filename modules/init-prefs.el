@@ -368,12 +368,6 @@ Disables flyspell if set to nil."
   :type  'string)
 
 
-;;; See init-helm-projectile.el
-(defcustom exordium-helm-projectile nil
-  "Whether Helm and Projectile are enabled or not."
-  :group 'exordium
-  :type  'boolean)
-
 ;;; See init-git.el
 ;;; exordium-git-gutter displays a git diff icon in the left fringe, while
 ;;; exordium-git-gutter-non-fringe displays the diff icon on the left side of the
@@ -438,12 +432,6 @@ This is considered only when `exordium-complete-mode' is `:auto-complete'."
   :group 'exordium
   :type  'symbol)
 
-;;; See init-rtags-helm.el
-(defcustom exordium-rtags-helm-everywhere nil
-  "Whether RTags uses Helm to display list of results, rather
-  than its own UI"
-  :group 'exordium
-  :type  'boolean)
 
 ;;; see init-rtags-cmake.el
 (defcustom exordium-rtags-cmake nil
@@ -483,16 +471,6 @@ This is considered only when `exordium-complete-mode' is `:auto-complete'."
   :type  'sexp)
 
 
-;;; See init-helm.el
-(defcustom exordium-helm-everywhere nil
-  "Whether Helm should be used as a substitute for common key bindings."
-  :group 'exordium
-  :type  'boolean)
-
-(defcustom exordium-helm-fuzzy-match nil
-  "Whether Helm should use fuzzy matching for searches."
-  :group 'exordium
-  :type  'boolean)
 
 
 ;;; Desktop state

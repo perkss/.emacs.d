@@ -269,7 +269,6 @@ the .elc exists. Also discard .elc without corresponding .el"
 ;;; Usability
 (use-package init-window-manager :ensure nil)  ; navigate between windows
 (use-package init-util :ensure nil)            ; utilities like match paren, bookmarks...
-;;(use-package init-ido :ensure nil)             ; supercharged completion engine
 (use-package init-highlight :ensure nil)       ; highlighting current line, symbol under point
 (use-package init-company :ensure nil
   :if (eq exordium-complete-mode :company))
@@ -288,7 +287,6 @@ the .elc exists. Also discard .elc without corresponding .el"
 (use-package init-git :ensure nil)             ; Magit and git gutter
 (use-package init-git-visit-diffs :ensure nil) ; visit diffs in successive narrowed buffers
 (use-package init-forge :ensure nil)           ; Forge
-;;(use-package init-flb-mode :ensure nil)        ; frame-local buffers
 
 (update-progress-bar)
 
@@ -418,12 +416,20 @@ the .elc exists. Also discard .elc without corresponding .el"
   :config
   (global-hl-todo-mode))
 
+;; adds count and current place in modeline for query replace
+(use-package anzu
+  :ensure t
+  :bind (("M-%" . anzu-query-replace)
+         ("C-M-%" . anzu-query-replace-regexp))
+  :config
+  (global-anzu-mode))
+
 ;; Rainbow parenthesis
 (use-package rainbow-delimiters
-     :ensure t
-     :config
-     (rainbow-delimiters-mode +1)
-     (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+  :ensure t
+  :config
+  (rainbow-delimiters-mode +1)
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
 (use-package ag
   :ensure t)

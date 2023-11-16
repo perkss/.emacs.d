@@ -26,19 +26,6 @@
   "Face for the name of the current project in the modeline"
   :group 'exordium)
 
-(when (featurep 'init-helm-projectile)
-  (eval-after-load "projectile"
-    `(setq projectile-mode-line
-           `(:eval (if (file-remote-p default-directory)
-                       (list " ["
-                             (propertize "*remote*"
-                                         'face 'exordium-project-name)
-                             "]")
-                     (list " ["
-                            (propertize (projectile-project-name)
-                                        'face 'exordium-project-name)
-                            "]"))))))
-
 
 ;;; Faces for our powerline theme. They are defined here and customized within
 ;;; each theme.

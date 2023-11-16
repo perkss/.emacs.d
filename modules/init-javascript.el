@@ -34,10 +34,6 @@
 
 (add-to-list 'auto-mode-alist '("\\.json$" . js2-mode))
 
-;;; Bind M-C-g to helm-imenu (lists functions and variables in buffer)
-(when (fboundp 'js2-imenu-extras-mode)
-  (js2-imenu-extras-mode)
-  (define-key js-mode-map [(meta control g)] 'helm-imenu))
 
 
 ;;; Define some RDEL symbols

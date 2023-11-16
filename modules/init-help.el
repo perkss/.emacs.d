@@ -59,11 +59,5 @@
         ("C-c C-d" . #'helpful-at-point)
         ("C-c C-o" . #'exordium-browse-url-at-point)))
 
-(use-package helm
-  :diminish
-  :custom
-  (helm-describe-variable-function #'helpful-variable)
-  (helm-describe-function-function #'helpful-function))
-
 
 (provide 'init-help)
