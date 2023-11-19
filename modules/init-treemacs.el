@@ -17,7 +17,10 @@
         ("C-x t M-t" . treemacs-find-tag))
   :config
   (treemacs-follow-mode t)
-  (treemacs-filewatch-mode t))
+  (treemacs-filewatch-mode t)
+  (when treemacs-python-executable
+     (treemacs-git-commit-diff-mode t))
+  )
 
     (use-package treemacs-magit
     :after magit

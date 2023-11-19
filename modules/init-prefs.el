@@ -551,8 +551,8 @@ Default is to choose the first that is found via `executable-find'."
   :risky t
   :type 'exordium-string-vector)
 
-(defcustom exordium-lsp-clangd-args '("-j=4" "--background-index" "--log=error" "--clang-tidy")
-  "Extra arguments for the clangd executable."
+(defcustom exordium-lsp-clangd-args '("-j=8" "--limit-references=1000" "--limit-results=100"  "--pch-storage=memory" "--background-index" "--log=error" "--clang-tidy")
+  "Extra arguments for the clangd executable. Mac no --malloc-trim"
   :group 'exordium
   :risky t
   :type '(repeat string))

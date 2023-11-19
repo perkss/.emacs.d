@@ -137,7 +137,7 @@
          ("C-c r [" . rtags-location-stack-back)
          ("C-c r ]" . rtags-location-stack-forward)
          ("C-c r e" . rtags-reparse-file)
-         ("M-C-g" . imenu-list)
+         ("M-C-g" . counsel-imenu)
 
          ))
 

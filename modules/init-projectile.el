@@ -9,8 +9,7 @@
   :config
   (projectile-mode)
   (progn
-    (setq projectile-enable-caching t)
-    ))
+    (setq projectile-enable-caching t)))
 
 
  (eval-after-load "projectile"
