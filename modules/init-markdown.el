@@ -130,7 +130,7 @@ time otherwise)"
   (when (boundp 'company-backends)
     (make-local-variable 'company-backends)
     ;; remove
-    (setq company-backends (delete 'company-dabbrev company-backends))
+    (setq company-backends (delete 'company-dabbrev-code company-backends))
     ;; add
     (add-to-list 'company-backends 'company-dabbrev)))
 
