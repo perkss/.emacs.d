@@ -141,27 +141,9 @@
 
          ))
 
-;; (use-package lsp-mode
-;;   :hook ((prog-mode . lsp-deferred))
-;;   :commands (lsp lsp-deferred)
-;;   :config
-;;   (progn
-;;     (lsp-register-client
-;;      (make-lsp-client :new-connection (lsp-tramp-connection "clangd")
-;;                       :major-modes '(c-mode c++-mode)
-;;                       :remote? t
-;;                       :server-id 'clangd-remote))))
-
 ;; (setq rtags-autostart-diagnostics t)
 ;; (setq rtags-tramp-enabled t)
 ;; (setq rtags-rc-log-enabled t)
-
-(pcase exordium-complete-mode
-  (:auto-complete
-   (use-package ac-rtags)
-   (use-package auto-complete-c-headers))
-  (:company
-   (use-package company-rtags)))
 
 
 ;;; Turn on flycheck support when requested
@@ -251,10 +233,7 @@ open-buffer is true."
     (let ((process
            (apply #'start-process "rdm" buffer "rdm" exordium-rtags-rdm-args)))
       (message "Started rdm - PID %d" (process-id process))))
-  ;; Add RTags to company backends
-  (when (and (eq exordium-complete-mode :company)
-             (not (member 'company-rtags company-backends)))
-    (push 'company-rtags company-backends)))
+)
 
 (defun rtags-start ()
   "Start the rdm deamon in a subprocess and display output in a
@@ -266,10 +245,6 @@ buffer. Also start the RTag diagostics mode."
 (defun rtags-stop ()
   "Stop both RTags diagnostics and rdm, if they are running."
   (interactive)
-  ;; Remove RTags from company backends
-  (when (and (eq exordium-complete-mode :company)
-             (member 'company-rtags company-backends))
-    (setq company-backends (delete 'company-rtags company-backends)))
   ;; Stop RTags Diagnostics and kill its buffer without prompt
   (when (and rtags-diagnostics-process
              (not (eq (process-status rtags-diagnostics-process) 'exit)))

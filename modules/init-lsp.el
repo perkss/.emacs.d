@@ -72,7 +72,6 @@
   (setq lsp-log-io nil)
   (setq lsp-signature-render-document nil)
   (setq lsp-pyls-plugins-flake8-enabled t)
-  (setq lsp-enable-snippet nil)
   (lsp-register-custom-settings
    '(("pyls.plugins.pyls_mypy.enabled" t t)
      ("pyls.plugins.pyls_mypy.live_mode" nil t)
